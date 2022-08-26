@@ -9,7 +9,7 @@ sys.path.append('Disp/Input_Output')
 
 from Display_Graph import Smart_Display
 from Display_Graph import pyqt5_display
-from Display_Graph import choice_size
+from Display_Graph import Choice_size
 
 def main():
 
@@ -24,10 +24,11 @@ def main():
         occur.append(i)
         recouv.append(10-i)
 
-    choice_size.app()
-    Smart_Display.One_size(matrice_chaleur, occur, recouv, 5)
-    #pyqt5_display.display(t_min=2, t_max=5)
-
+    # pour l'instant seul les deux premiers params 
+    # sont totalement utilisés
+    Choice_size.window(3,5)#3, 5, matrice_chaleur, occur, recouv)
+    #Smart_Display.One_size(matrice_chaleur, occur, recouv, 5)
+    
 
 if __name__=="__main__":
     main()
