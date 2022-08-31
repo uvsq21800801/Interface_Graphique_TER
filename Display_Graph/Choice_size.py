@@ -1,6 +1,9 @@
 
 from traceback import print_tb
 from PyQt5.QtWidgets import *
+#from PyQt5 import QtCore, QtGui
+#from PyQt5.QtGui import * 
+#from PyQt5.QtCore import *
 #from PyQt5.QtWidgets import (QWidget, QLabel, QHBoxLayout,QCheckBox, QApplication)
 import sys
 from Display_Graph import Database_functs as DbC
@@ -29,14 +32,14 @@ class MenuWindow(QMainWindow):
             iterable_structures.append(t["name"])
         print(iterable_structures)
 
-        self.interf_comb = QComboBox()
-        self.interf_comb.addItems(iterable_structures) 
+        self.combo_interf = QComboBox()
+        self.combo_interf.addItems(iterable_structures) 
 
         # Choix de la configuration 
         iterable_conf = self.db.configurations.aggregate([])
-        self.conf_comb = QComboBox()
+        self.combo_conf = QComboBox()
         list_conf = ["A sélectionner"]
-        self.conf_comb.addItems(list_conf) 
+        self.combo_conf.addItems(list_conf) 
 
         # Choix exclusif pour le type de comparaison
 
@@ -49,16 +52,16 @@ class MenuWindow(QMainWindow):
 
         # Choix multiple pour chaquune des tailles
         # créer une boite combo pour la taille n1
-        sizeComboB1 = QComboBox()
+        self.sizeComboB1 = QComboBox()
         list_1 = ["A sélectionner"]
         size_min = 1
         size_max = 5
         for i in range(size_min,size_max+1):
             list_1.append(str(i))
-        sizeComboB1.addItems(list_1)  
+        self.sizeComboB1.addItems(list_1)  
         # créer une boite combo pour la taille n2
-        sizeComboB2 = QComboBox()
-        sizeComboB2.addItems(["A sélectionner"])
+        self.sizeComboB2 = QComboBox()
+        self.sizeComboB2.addItems(["A sélectionner"])
         # bouton valider
         vbutt = QPushButton()
         vbutt.setText("Valider")
@@ -66,7 +69,7 @@ class MenuWindow(QMainWindow):
         # Label erreur
         self.label_err = QLabel(self)
         self.label_err.setText("")
-        
+
 
         # Numéros d'étapes
         label_et1 = QLabel()
@@ -111,19 +114,29 @@ class MenuWindow(QMainWindow):
 
         ## ajouter les items dans le layout
         # ajout des labels et item interactifs
-        self.one_lay.addWidget(self.interf_comb, 2, 1)
-        self.one_lay.addWidget(self.conf_comb, 4,1)
+        self.one_lay.addWidget(self.combo_interf, 2, 1)
+        self.one_lay.addWidget(self.combo_conf, 4,1)
         self.one_lay.addWidget(self.radio_1, 6, 1)
         self.one_lay.addWidget(self.radio_2, 6, 2)
-        self.one_lay.addWidget(sizeComboB1, 9, 1)
-        self.one_lay.addWidget(sizeComboB2, 9, 2)
+        self.one_lay.addWidget(self.sizeComboB1, 9, 1)
+        self.one_lay.addWidget(self.sizeComboB2, 9, 2)
         self.one_lay.addWidget(vbutt, 10, 1)
         self.one_lay.addWidget(self.label_err, 10, 2)
         #
 
         # events
-        self.interf_comb.activated.connect(self.change_config_choices)
-        
+        self.combo_interf.activated.connect(self.change_config_choices)
+        self.combo_conf.activated.connect(self.update_size_1)
+        self.sizeComboB1.activated.connect(self.update_size_2)
+        self.radio_1.toggled.connect(self.toggle_type_of_search)
+        self.radio_2.toggled.connect(self.toggle_type_of_search)
+        self.sizeComboB2.setDisabled(True)
+        vbutt.clicked.connect(self.validate)
+
+
+        #self.sizeComboB1.activated.connect
+        #self.sizeComboB2.activated.connect
+
         # entrer le layout dans une widget
         self.one_wigd = QWidget()
         self.one_wigd.setLayout(self.one_lay)
@@ -140,14 +153,14 @@ class MenuWindow(QMainWindow):
 
     def change_config_choices(self):
         # Interface choisie par l'utilisateur 
-        selected = self.interf_comb.currentText() #(self.interf_comb.SelectedItem);
+        selected = self.combo_interf.currentText()
         # On retrouve l'id de l'interface pour sortir les config associées
-        structure_id = self.db.structures.find_one({"name":selected})
-        structure_id = structure_id["_id"]
+        self.structure_id = self.db.structures.find_one({"name":selected})
+        self.structure_id = self.structure_id["_id"]
         
         # recherche des configurations qui matchent l'identifiant de la structure choisie
         temp = self.db.configurations.aggregate([
-            {"$match": {"struct": ObjectId(structure_id)}}
+            {"$match": {"struct": ObjectId(self.structure_id)}}
         ])
         # création de la nouvelle liste de num de configurations
         iterable_conf = ["A sélectionner"]
@@ -155,9 +168,87 @@ class MenuWindow(QMainWindow):
             iterable_conf.append(str(t['number']))
         
         # ajout des configurations dans la combo box
-        self.conf_comb.clear()
-        self.conf_comb.addItems(iterable_conf)
+        self.combo_conf.clear()
+        self.combo_conf.addItems(iterable_conf)
+        #self.label_err.setText("")
 
+    def toggle_type_of_search(self):
+        r1 = self.radio_1.isChecked()
+        r2 = self.radio_2.isChecked()
+        
+        # verif si on peut lock/unlock t2
+        if r1:
+            self.sizeComboB2.setDisabled(True)
+        if r2:
+            self.sizeComboB2.setDisabled(False)            
+
+    def update_size_1(self):
+        # configuration choisie par l'utilisateur
+        conf = self.combo_conf.currentText()
+        selected = self.combo_interf.currentText()
+
+        sizes = self.db.configurations.find_one({"struct":ObjectId(self.structure_id), "number":int(conf)})
+        sizes = sizes["sizes"]
+        #print(conf_id)
+
+        self.t1 = ["A sélectionner"]
+        for s in sizes:
+            self.t1.append(str(s))
+        self.sizeComboB1.clear()
+        self.sizeComboB1.addItems(self.t1)
+
+        #pain = self.db.configurations.aggregate([])
+        #for i in pain:
+            #print(i) 
+
+    def update_size_2(self):
+        t2 = self.t1.copy()
+        if (self.sizeComboB1.currentText() != "A sélectionner"):
+            t2.remove(self.sizeComboB1.currentText())
+        self.sizeComboB2.clear()
+        self.sizeComboB2.addItems(t2)
+
+    def validate(self):
+        interf = self.combo_interf.currentText()
+        conf = self.combo_conf.currentText()
+        t1 = self.sizeComboB1.currentText()
+        t2 = self.sizeComboB2.currentText()
+        r1 = self.radio_1.isChecked()
+        r2 = self.radio_2.isChecked()
+
+        cdt = "A sélectionner"
+        if t1 != cdt and interf != cdt and conf != cdt: 
+            if r2 and t2 != cdt:
+                print("call nice windowo 2")
+            if r1:
+                print("call nice windowo 1")
+        
+
+
+    def update_sizes(self): #trash
+        conf = self.combo_conf.currentText()
+        t1 = self.sizeComboB1.currentText()
+        t2 = self.sizeComboB2.currentText()
+        r1 = self.radio_1.isChecked()
+        r2 = self.radio_2.isChecked()
+        
+        # verif si on peut lock/unlock t2
+        if r1:
+            self.sizeComboB2.setDisabled(True)
+        if r2:
+            self.sizeComboB2.setDisabled(False)            
+
+        # cas où aucune config n'est choisie
+        if conf == "A sélectionner":
+            self.label_err.setText("Veuillez choisir une configuration.")
+        # cas où aucune taille n'est choisie 
+        elif not r1 and not r2:
+            self.label_err.setText("Veuillez choisir la/les taille(s).")
+        # cas où t2 n'est pas remplie mais r2 est cochée
+        if t2 == "A sélectionner" and r2:
+            self.label_err.setText("Veuillez choisir une seconde taille.")
+
+        
 
     def disp_window(self):
         print('it worked')
