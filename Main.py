@@ -26,7 +26,7 @@ def main():
 
     # pour l'instant seul les deux premiers params 
     # sont totalement utilisés
-    Choice_size.window(3,5)#3, 5, matrice_chaleur, occur, recouv)
+    Choice_size.window()
     #Smart_Display.One_size(matrice_chaleur, occur, recouv, 5)
     
 
