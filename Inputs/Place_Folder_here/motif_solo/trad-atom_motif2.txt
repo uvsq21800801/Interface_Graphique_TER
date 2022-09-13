@@ -1,0 +1,9 @@
+10
+0	OS	OS1
+1	OS	OS2
+2	H	H1
+3	H	H2
+4	OW	OW1
+5	OW	OW2
+6	H	H3
+

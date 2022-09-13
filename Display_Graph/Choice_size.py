@@ -6,8 +6,11 @@ from PyQt5.QtWidgets import *
 #from PyQt5.QtCore import *
 #from PyQt5.QtWidgets import (QWidget, QLabel, QHBoxLayout,QCheckBox, QApplication)
 import sys
-from Display_Graph import Database_functs as DbC
+from Inputs import Database_create as DbC
+#from Display_Graph import Database_functs as DbC
 from bson.objectid import ObjectId
+
+from Display_Graph import Clickable_display
 
 class MenuWindow(QMainWindow):
     def __init__(self):
@@ -217,6 +220,11 @@ class MenuWindow(QMainWindow):
         r2 = self.radio_2.isChecked()
 
         cdt = "A sélectionner"
+        
+        # appel de la nouvelle fenêtre
+        self.w = Clickable_display.InteractiveWindow(parent=self)
+        self.w.show()
+
         if t1 != cdt and interf != cdt and conf != cdt: 
             if r2 and t2 != cdt:
                 print("call nice windowo 2")
