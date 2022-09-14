@@ -1,5 +1,7 @@
+from curses.ascii import isdigit
 from re import X
 import telnetlib
+from turtle import update
 from PyQt5.QtWidgets import *
 import sys
 from Display_Graph import Smart_Display
@@ -22,8 +24,12 @@ from Outputs.texture import *
 
 temp_x = 0
 temp_y = 0
-x = 0
-y = 0
+x = 'not a float, ce texte vérifie que user a bien choisi une case de la mat de chaleur'
+y = 'not a float, ce texte vérifie que user a bien choisi une case de la mat de chaleur'
+text_x = ' '
+text_y = ' '
+t_x = ' '
+t_y = ' '
 class MplCanvas(FigureCanvasQTAgg):
 
     def __init__(self, parent, width=5, height=4, dpi=100):
@@ -66,9 +72,9 @@ class MplCanvas(FigureCanvasQTAgg):
         lst_sim, tab_sim = Gd.analyse_simil(tab_sim, num_type, 2)
         # Figures :
         plt.clf()
-        fig = plt.figure(figsize = (1.5*(ratio_x+ratio_ext),1.5*(ratio_y+ratio_ext)))#, constrained_layout=True)
+        fig = plt.figure(figsize = (1.5*(ratio_x+ratio_ext)+10,1.5*(ratio_y+ratio_ext)+10))#, constrained_layout=True)
         super(MplCanvas, self).__init__(fig)
-        gs = fig.add_gridspec(2, 3, width_ratios = (ratio_ext,ratio_x,0.1), height_ratios = (ratio_ext,ratio_y), left=0.05, right=0.95, bottom=0.05, top=0.95)#, hspace=0.25, wspace=0.25) #
+        gs = fig.add_gridspec(2, 4, width_ratios = (ratio_ext,ratio_x,0.1,0.5), height_ratios = (ratio_ext,ratio_y), left=0.05, right=0.95, bottom=0.05, top=0.95)#, hspace=0.25, wspace=0.25) #
         ax_hm = fig.add_subplot(gs[1,1])
         axbar = fig.add_subplot(gs[0,1], sharex=ax_hm)
         aybar = fig.add_subplot(gs[1,0], sharey=ax_hm)
@@ -81,19 +87,47 @@ class MplCanvas(FigureCanvasQTAgg):
         Gd.heatmap(ax_hm, tab_sim, lst_id_x, lst_id_y, lenght, step, norm, cm, pointer)
         cbar = colorbar.Colorbar(ax=ax_colorbar, mappable=None, cmap=cm, norm=norm)
         Gd.sim_hist(ax_hist_sim, lst_sim, cm)
-        
+        # texte
+        ax_text.axis([0, 10, 0, 10])
+        ax_text.text(1, 8, 'Indice des abscices choisi:', fontsize=8)
+        listOfGlobals = globals()
+        listOfGlobals['t_x'] = ax_text.text(1, 6, 'Lire dans le terminal'+str(text_x), style='italic',
+        bbox={'facecolor': 'red', 'alpha': 0.5, 'pad': 10})
+        ax_text.text(1, 4, 'Indice des ordonées choisi:', fontsize=8)
+        listOfGlobals['t_y'] = ax_text.text(1, 2, 'Lire dans le terminal'+str(text_y), style='italic',
+        bbox={'facecolor': 'red', 'alpha': 0.5, 'pad': 10})
+        ax_text.axis('off')
         plt.connect('motion_notify_event', on_move)
+        plt.connect('button_press_event',smarter_on_click)
         #binding_id = plt.connect('button_press_event', on_click)
     
-    
-        
+def smarter_on_click(event):
+    listOfGlobals = globals()
+    listOfGlobals['x'] = temp_x
+    listOfGlobals['y'] = temp_y
+    listOfGlobals['t_x'].set_text(str(temp_x))
+    listOfGlobals['t_y'].set_text(str(temp_y))
+    #print('indices selectionnés %f %f' % (x.round(),y.round()))
+    print('choix des motifs d\'indices %d et %d' % (int(x.round()),int(y.round())))
+            
+
+def on_click(event):
+    listOfGlobals = globals()
+    listOfGlobals['x'] = temp_x
+    listOfGlobals['y'] = temp_y
+    #t_x.set_text(str(temp_x))
+    #t_y.set_text(str(temp_y))
+    print('indices selectionnés %f %f' % (x.round(),y.round()))
 def on_move(event):
 # get the x and y pixel coords
-    x, y = event.x, event.y
+    listOfGlobals = globals()
+    listOfGlobals['temp_x'] = event.xdata
+    listOfGlobals['temp_y'] = event.ydata
     if event.inaxes:
         ax = event.inaxes  # the axes instance
         #print('data coords %f %f' % (event.xdata, event.ydata))
-        print('onmove %d %d' % (event.xdata.round(), event.ydata.round()))
+        #print('onmove %d %d' % (event.xdata.round(), event.ydata.round()))
+
 
 
 class InteractiveWindow(QMainWindow):
@@ -109,6 +143,9 @@ class InteractiveWindow(QMainWindow):
         # il englobera en deux parties, l'affichage matplotlib et les motifs
         self.lay_H = QHBoxLayout()
         
+        # layout vertical pour matplotlib et le bouton de confirmation
+        self.lay_matplot = QVBoxLayout()
+
         # definition du layout vertical, il englobe l'affichage des 
         # motifs selectionnés
         self.lay_V_motifs = QVBoxLayout()
@@ -123,18 +160,27 @@ class InteractiveWindow(QMainWindow):
         #sc.axes.plot([0,1,2,3,4], [10,1,20,3,40])
         
         # ajout de l'affichage matplotlib
-        self.lay_H.addWidget(sc)
-        
+        self.lay_matplot.addWidget(sc)
+        #self.lay_H.addWidget(sc)
+        # bouton valider le choix des indices pour l'affichage des graphlet et 
+        # du mcis
+        vbutt = QPushButton()
+        vbutt.setText("Valider")
+        self.lay_matplot.addWidget(vbutt)
+        vbutt.clicked.connect(self.validate)
         #
 
-        self.lay_H.addLayout(self.lay_V_motifs)
         
+        # ajout du layout matplotlib et V au layout horizontal
+        self.lay_H.addLayout(self.lay_matplot)
+        self.lay_H.addLayout(self.lay_V_motifs)
+
         # création des labels textes
         self.label_abs = QLabel()
         self.label_abs.setText("Motif numéro: ")
         
         self.label_mcis = QLabel()
-        self.label_mcis.setText("MCIS obtenu")
+        self.label_mcis.setText("MCIS obtenu: ")
 
         self.label_ord = QLabel()
         self.label_ord.setText("Motif numéro: ")
@@ -156,8 +202,19 @@ class InteractiveWindow(QMainWindow):
 
         self.setCentralWidget(self.one_wigd)
 
-    def mousePressEvent(self, event):
-        print("a")
+    #def mousePressEvent(self, event):
+        #print("a")
         #print('data coords %d %d' % (x.round(), y.round()))
 
+    def validate(self):
+        try:
+            float(x)
+            int(x)
+            print('Afficher les motifs des indices %d et %d' % (int(x.round()),int(y.round())))
+            # code qui génère et affiche les motifs
+
+        except ValueError:
+            print('veuillez cliquer une case de la matrice de chaleur')
     
+
+     
