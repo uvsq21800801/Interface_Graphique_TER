@@ -78,6 +78,19 @@ def terminal_question_choice(question, choices):
     input_c = terminal_input_num_borne("",0,len(choices)-1)
     return int(input_c)
 
+def terminal_question_text_choice(question, lst_choice):
+    if len(str(question)) > 0:
+        print(str(question))
+    res = []
+    while len(res) == 0 :
+        input_c = input(str(lst_choice)+" : ")
+        if input_c == "":
+            return None
+        splitted = input_c.split()
+        for elem in splitted:
+            if elem in lst_choice:
+                res.append(elem)
+    return res
 
 # Récupère un ensemble (suite de numéros entiers et/ou intervalles)
 def terminal_ensemble_num(question):

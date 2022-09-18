@@ -1,4 +1,6 @@
 
+from ctypes import Structure
+from lzma import is_check_supported
 from traceback import print_tb
 from PyQt5.QtWidgets import *
 #from PyQt5 import QtCore, QtGui
@@ -11,11 +13,36 @@ from Inputs import Database_create as DbC
 from bson.objectid import ObjectId
 
 from Display_Graph import Clickable_display
+from Interfaces import Select_process as Sp
+#from Interfaces import Study_process as Study
+# pas encore utilisé
+'''
+class db_ids:
+    def __init__(self):
+        self.structure_id = ""
+        self.coloration_id = ""
+        self.configuration_dict = {}
+        self.motif_spe_id = ""
+'''
 
 class MenuWindow(QMainWindow):
     def __init__(self):
         super(MenuWindow, self).__init__()
         self.setWindowTitle("Choix de taille")
+        
+        # Misc/initialisation de structures de transfert
+        # les identifiants de la BDD (format _id)
+        #      0 : structure (_id)
+        #      1 : coloration (_id)
+        #      2 : configuration (dict{_id})
+        #      3 : motif spécifique (_id)
+        self.db_ids = ["", "", {}, ""]
+        # les noms dans la BDD (format str)
+        #      0 : structure (name)
+        #      1 : coloration (name)
+        #      2 : configuration ([number])
+        #      3 : motif spécifique (sign)
+        self.db_names = ["", "", [], 0]
         
         # init BDD
         ##### CONNECTION A LA BDD
@@ -31,15 +58,25 @@ class MenuWindow(QMainWindow):
         # Choix de l'interface
         temp = self.db.structures.aggregate([])
         iterable_structures = ["A sélectionner"]
+        self.dict_struct_name_id = {} 
         for t in temp:
             iterable_structures.append(t["name"])
+            ## insert entry to dict here
+            self.dict_struct_name_id[str(t["name"])] = str(t["_id"])
         print(iterable_structures)
+        print(self.dict_struct_name_id)
 
         self.combo_interf = QComboBox()
         self.combo_interf.addItems(iterable_structures) 
 
+        # Choix de la coloration
+        self.combo_color = QComboBox()
+        self.list_color = ["A sélectionner"]
+        self.combo_color.addItems(self.list_color)
+
         # Choix de la configuration 
         iterable_conf = self.db.configurations.aggregate([])
+        self.dict_conf_name_id = {} 
         self.combo_conf = QComboBox()
         list_conf = ["A sélectionner"]
         self.combo_conf.addItems(list_conf) 
@@ -85,17 +122,22 @@ class MenuWindow(QMainWindow):
         label_et4.setText("4)")
         label_et5 = QLabel()
         label_et5.setText("5)")
+        label_et6 = QLabel()
+        label_et6.setText("6)")
         
         # Ajout des numéros d'étapes
         self.one_lay.addWidget(label_et1,1,0)
         self.one_lay.addWidget(label_et2,3,0)
         self.one_lay.addWidget(label_et3,5,0)
         self.one_lay.addWidget(label_et4,7,0)
-        self.one_lay.addWidget(label_et5,10,0)
+        self.one_lay.addWidget(label_et5,9,0)
+        self.one_lay.addWidget(label_et6,12,0)
 
         # labels
         interf_label = QLabel()
         interf_label.setText("Choisissez le nom d'interface:")
+        color_label = QLabel()
+        color_label.setText("Choisissez la coloration:")
         conf_label = QLabel()
         conf_label.setText("Choisissez le numéro de configuration:")
         choix_type_label = QLabel()
@@ -109,26 +151,29 @@ class MenuWindow(QMainWindow):
 
         # ajout des labels
         self.one_lay.addWidget(interf_label, 1,1)
-        self.one_lay.addWidget(conf_label, 3,1)
-        self.one_lay.addWidget(choix_type_label,5,1)
-        self.one_lay.addWidget(choix_tailles_label,7,1)
-        self.one_lay.addWidget(choix_taille_1,8,1)
-        self.one_lay.addWidget(choix_taille_2,8,2)
+        self.one_lay.addWidget(color_label,3, 1)
+        self.one_lay.addWidget(conf_label, 5,1)
+        self.one_lay.addWidget(choix_type_label,7,1)
+        self.one_lay.addWidget(choix_tailles_label,9,1)
+        self.one_lay.addWidget(choix_taille_1,10,1)
+        self.one_lay.addWidget(choix_taille_2,10,2)
 
         ## ajouter les items dans le layout
         # ajout des labels et item interactifs
         self.one_lay.addWidget(self.combo_interf, 2, 1)
-        self.one_lay.addWidget(self.combo_conf, 4,1)
-        self.one_lay.addWidget(self.radio_1, 6, 1)
-        self.one_lay.addWidget(self.radio_2, 6, 2)
-        self.one_lay.addWidget(self.sizeComboB1, 9, 1)
-        self.one_lay.addWidget(self.sizeComboB2, 9, 2)
-        self.one_lay.addWidget(vbutt, 10, 1)
-        self.one_lay.addWidget(self.label_err, 10, 2)
+        self.one_lay.addWidget(self.combo_color, 4, 1)
+        self.one_lay.addWidget(self.combo_conf, 6,1)
+        self.one_lay.addWidget(self.radio_1, 8, 1)
+        self.one_lay.addWidget(self.radio_2, 8, 2)
+        self.one_lay.addWidget(self.sizeComboB1, 11, 1)
+        self.one_lay.addWidget(self.sizeComboB2, 11, 2)
+        self.one_lay.addWidget(vbutt, 12, 1)
+        self.one_lay.addWidget(self.label_err, 12, 2)
         #
 
         # events
-        self.combo_interf.activated.connect(self.change_config_choices)
+        self.combo_interf.activated.connect(self.change_color_choices)
+        self.combo_color.activated.connect(self.change_config_choices)
         self.combo_conf.activated.connect(self.update_size_1)
         self.sizeComboB1.activated.connect(self.update_size_2)
         self.radio_1.toggled.connect(self.toggle_type_of_search)
@@ -154,21 +199,44 @@ class MenuWindow(QMainWindow):
 
         
 
-    def change_config_choices(self):
+    def change_color_choices(self):
         # Interface choisie par l'utilisateur 
         selected = self.combo_interf.currentText()
         # On retrouve l'id de l'interface pour sortir les config associées
         self.structure_id = self.db.structures.find_one({"name":selected})
         self.structure_id = self.structure_id["_id"]
-        
-        # recherche des configurations qui matchent l'identifiant de la structure choisie
+        print('self.structure_id')
+        print(self.structure_id)
+        # recherche des coloration qui matchent l'identifiant de la structure
+        #temp = self.db.colorations#.aggregate#([
+            #{"$match": {"struct": ObjectId(self.structure_id)}}
+        #])
+        self.list_color = ["A sélectionner"]
+        for result in self.db.colorations.find():
+            self.list_color.append(result['name'])
+
+        self.combo_color.clear()
+        self.combo_color.addItems(self.list_color)
+
+
+    def change_config_choices(self):
+        # couleur choisie par l'utilisateur
+        selected = self.combo_color.currentText()
+        # On retrouve l'id de la couleur pour sortir les config associées
+        self.color_id = self.db.colorations.find_one({"name":selected})
+        self.color_id = self.color_id["_id"]
+
+        # recherche des configurations qui matchent l'identifiant de 
+        # la structure et de la couleur choisie
         temp = self.db.configurations.aggregate([
-            {"$match": {"struct": ObjectId(self.structure_id)}}
+            {"$match": {"struct": ObjectId(self.structure_id),"color": ObjectId(self.color_id)}}
         ])
         # création de la nouvelle liste de num de configurations
+        self.dict_conf_name_id = {} 
         iterable_conf = ["A sélectionner"]
         for t in temp:
             iterable_conf.append(str(t['number']))
+            self.dict_conf_name_id[str(t["number"])] = str(t["_id"])
         
         # ajout des configurations dans la combo box
         self.combo_conf.clear()
@@ -212,25 +280,74 @@ class MenuWindow(QMainWindow):
         self.sizeComboB2.addItems(t2)
 
     def validate(self):
-        interf = self.combo_interf.currentText()
-        conf = self.combo_conf.currentText()
-        t1 = self.sizeComboB1.currentText()
-        t2 = self.sizeComboB2.currentText()
-        r1 = self.radio_1.isChecked()
-        r2 = self.radio_2.isChecked()
+        self.send_interf = self.combo_interf.currentText()
+        self.send_conf = self.combo_conf.currentText()
+        self.send_t1 = self.sizeComboB1.currentText()
+        self.send_t2 = self.sizeComboB2.currentText()
+        self.send_r1 = self.radio_1.isChecked()
+        self.send_r2 = self.radio_2.isChecked()
 
-        cdt = "A sélectionner"
+        #need error loop
+        print(self.dict_conf_name_id)
         
+        print(self.combo_conf.currentText())
+        
+        self.db_ids[0] = self.dict_struct_name_id[str(self.combo_interf.currentText())]
+        self.db_ids[1] = ObjectId(str(self.color_id))
+        self.db_ids[2] = ObjectId(self.dict_conf_name_id[str(self.combo_conf.currentText())])
+        self.db_names[0] = str(self.combo_interf.currentText())
+        self.db_names[1] = str(self.combo_color.currentText())
+        self.db_names[2] = int(self.combo_conf.currentText())
+        #self.db_names[1] = str(self.combo_conf.currentText())
+         
+        #nb_config, _ = Sp.view_config(self.db, self.db_ids, self.db_names)
+        #Study.Complete_process()
+        print('db_ids')
+        
+        print(self.db_ids)
+        print ("[int(self.sizeComboB1.currentText())]")
+        
+        print ([int(self.sizeComboB1.currentText())])
+        #print(nb_config)
+        print('fin dict conf')
+        
+        # cribles à ajouter quand j'aurais le temps
+
+        # pour l'instant, le terminal sera utilisé pour la gestion des cribles
+        #lst_color = Di.insert_color(self.db.colorations, self.db_ids, db_names, options)
+        #lst_color = self.list_color
+        #lst_color.remove("A sélectionner")
+        lst_color = self.db.colorations.find_one({"_id":self.db_ids[1]})
+        lst_color = lst_color["elements"]
+        print("lst_color")
+        print(lst_color)
+
+        self.lst_motifs1 = Sp.test_filter(self.db, self.db_ids, [int(self.sizeComboB1.currentText())], lst_color)
+        if self.radio_1.isChecked():
+            self.lst_motifs2 = Sp.test_filter(self.db, self.db_ids, [int(self.sizeComboB1.currentText())], lst_color)
+        else:
+            self.lst_motifs2 = self.lst_motifs1.copy()
+            #Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB2.currentText()), temp_lst_color)
+        print(self.lst_motifs1)
+        print("aaa")
+        print(self.lst_motifs2)
+
+
         # appel de la nouvelle fenêtre
         self.w = Clickable_display.InteractiveWindow(parent=self)
         self.w.show()
 
-        if t1 != cdt and interf != cdt and conf != cdt: 
+        # gestion d'erreur (pas encore fait)
+        cdt = "A sélectionner"
+        if self.send_t1 != cdt and self.send_interf != cdt and self.send_conf != cdt: 
+            
+            
+            '''
             if r2 and t2 != cdt:
                 print("call nice windowo 2")
             if r1:
                 print("call nice windowo 1")
-        
+        '''
 
 
     def update_sizes(self): #trash

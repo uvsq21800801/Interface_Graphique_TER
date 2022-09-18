@@ -207,5 +207,4 @@ def read_parameters_file(path, filename):
             return 1, f[1], None, None, None
         elif 'S' in f[0] and len(f) >= 5:
             return 2, f[1], f[2], f[3], f[4]
-        else :
-            return 0, None, None, None, None
+    return 0, None, None, None, None

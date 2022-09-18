@@ -75,18 +75,18 @@ def interface():
     if res == -1:  # Fermeture
         print("Tentatives épuisées - Fermeture du programme")
         return 0
-    else:
-        # Choix de la coloration
-        lst_color = Sp.select_color(db, db_ids, db_names, options)
-        # Affiche les num de configuration et les tailles
-        nb_config, _ = Sp.view_config(db, db_ids, db_names)
-        # Choix de procéder sur les données actuelles ou d'en créer
-        res = Sp.select_process(nb_config)
-        if res == -1:  # Fermeture
-            print("Fermeture du programme")
-            return 0
-        if res == 0:  # Génération de données
-            Complete_process(db, db_ids, db_names, options, lst_color, path_I)
+    
+    # Choix de la coloration
+    lst_color = Sp.select_color(db, db_ids, db_names, options)
+    # Affiche les num de configuration et les tailles
+    nb_config, _ = Sp.view_config(db, db_ids, db_names)
+    # Choix de procéder sur les données actuelles ou d'en créer
+    res = Sp.select_process(nb_config)
+    if res == -1:  # Fermeture
+        print("Fermeture du programme")
+        return 0
+    elif res == 0:  # Génération de données
+        Complete_process(db, db_ids, db_names, options, lst_color, path_I)
     test = True
     ############ Partie Traitement de Données ##################
     while test :
@@ -102,12 +102,12 @@ def interface():
         # lst_motifs regroupe les motifs correspondant aux critères - {_id : sign}
         if Multi_size :
             # 1ere taille
-            lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0])
+            lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0], lst_color)
             # 2eme taille
-            lst_motifs2 = Sp.test_filter(db, db_ids, tab_size[1])
+            lst_motifs2 = Sp.test_filter(db, db_ids, tab_size[1], lst_color)
         else :
             # taille unique
-            lst_motifs = Sp.test_filter(db, db_ids, tab_size[0])
+            lst_motifs = Sp.test_filter(db, db_ids, tab_size[0], lst_color)
 
         # Nombre de comparaison à faire et test des longueurs des listes
         nb_comp = 0

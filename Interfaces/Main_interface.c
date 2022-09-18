@@ -2432,7 +2432,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *     if res == -1:  # Fermeture
  *         print("Tentatives puises - Fermeture du programme")             # <<<<<<<<<<<<<<
  *         return 0
- *     else:
+ * 
  */
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
@@ -2442,8 +2442,8 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *     if res == -1:  # Fermeture
  *         print("Tentatives puises - Fermeture du programme")
  *         return 0             # <<<<<<<<<<<<<<
- *     else:
- *         # Choix de la coloration
+ * 
+ *     # Choix de la coloration
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_int_0);
@@ -2460,196 +2460,281 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
   }
 
   /* "Interfaces/Main_interface.pyx":80
- *     else:
- *         # Choix de la coloration
- *         lst_color = Sp.select_color(db, db_ids, db_names, options)             # <<<<<<<<<<<<<<
- *         # Affiche les num de configuration et les tailles
- *         nb_config, _ = Sp.view_config(db, db_ids, db_names)
+ * 
+ *     # Choix de la coloration
+ *     lst_color = Sp.select_color(db, db_ids, db_names, options)             # <<<<<<<<<<<<<<
+ *     # Affiche les num de configuration et les tailles
+ *     nb_config, _ = Sp.view_config(db, db_ids, db_names)
  */
-  /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Sp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 80, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_select_color); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = NULL;
-    __pyx_t_6 = 0;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_7);
-      if (likely(__pyx_t_3)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-        __Pyx_INCREF(__pyx_t_3);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_7, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_7)) {
-      PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names, __pyx_v_options};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
-      PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names, __pyx_v_options};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-    } else
-    #endif
-    {
-      __pyx_t_2 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      if (__pyx_t_3) {
-        __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
-      }
-      __Pyx_INCREF(__pyx_v_db);
-      __Pyx_GIVEREF(__pyx_v_db);
-      PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_6, __pyx_v_db);
-      __Pyx_INCREF(__pyx_v_db_ids);
-      __Pyx_GIVEREF(__pyx_v_db_ids);
-      PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_6, __pyx_v_db_ids);
-      __Pyx_INCREF(__pyx_v_db_names);
-      __Pyx_GIVEREF(__pyx_v_db_names);
-      PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_6, __pyx_v_db_names);
-      __Pyx_INCREF(__pyx_v_options);
-      __Pyx_GIVEREF(__pyx_v_options);
-      PyTuple_SET_ITEM(__pyx_t_2, 3+__pyx_t_6, __pyx_v_options);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    }
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_v_lst_color = __pyx_t_1;
-    __pyx_t_1 = 0;
-
-    /* "Interfaces/Main_interface.pyx":82
- *         lst_color = Sp.select_color(db, db_ids, db_names, options)
- *         # Affiche les num de configuration et les tailles
- *         nb_config, _ = Sp.view_config(db, db_ids, db_names)             # <<<<<<<<<<<<<<
- *         # Choix de procder sur les donnes actuelles ou d'en crer
- *         res = Sp.select_process(nb_config)
- */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_Sp); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_view_config); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = NULL;
-    __pyx_t_6 = 0;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
-      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_2);
-      if (likely(__pyx_t_7)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-        __Pyx_INCREF(__pyx_t_7);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_2, function);
-        __pyx_t_6 = 1;
-      }
-    }
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-      PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __Pyx_GOTREF(__pyx_t_1);
-    } else
-    #endif
-    {
-      __pyx_t_3 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      if (__pyx_t_7) {
-        __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_7); __pyx_t_7 = NULL;
-      }
-      __Pyx_INCREF(__pyx_v_db);
-      __Pyx_GIVEREF(__pyx_v_db);
-      PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_6, __pyx_v_db);
-      __Pyx_INCREF(__pyx_v_db_ids);
-      __Pyx_GIVEREF(__pyx_v_db_ids);
-      PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_6, __pyx_v_db_ids);
-      __Pyx_INCREF(__pyx_v_db_names);
-      __Pyx_GIVEREF(__pyx_v_db_names);
-      PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_6, __pyx_v_db_names);
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    }
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
-      PyObject* sequence = __pyx_t_1;
-      Py_ssize_t size = __Pyx_PySequence_SIZE(sequence);
-      if (unlikely(size != 2)) {
-        if (size > 2) __Pyx_RaiseTooManyValuesError(2);
-        else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 82, __pyx_L1_error)
-      }
-      #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
-        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
-      } else {
-        __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
-        __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
-      }
-      __Pyx_INCREF(__pyx_t_2);
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Sp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_select_color); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  __pyx_t_6 = 0;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_7);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
       __Pyx_INCREF(__pyx_t_3);
-      #else
-      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      #endif
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    } else {
-      Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
-      index = 0; __pyx_t_2 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_2)) goto __pyx_L5_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_2);
-      index = 1; __pyx_t_3 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_3)) goto __pyx_L5_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_3);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
-      __pyx_t_8 = NULL;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      goto __pyx_L6_unpacking_done;
-      __pyx_L5_unpacking_failed:;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_8 = NULL;
-      if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 82, __pyx_L1_error)
-      __pyx_L6_unpacking_done:;
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_7, function);
+      __pyx_t_6 = 1;
     }
-    __pyx_v_nb_config = __pyx_t_2;
-    __pyx_t_2 = 0;
-    __Pyx_DECREF_SET(__pyx_v__, __pyx_t_3);
-    __pyx_t_3 = 0;
-
-    /* "Interfaces/Main_interface.pyx":84
- *         nb_config, _ = Sp.view_config(db, db_ids, db_names)
- *         # Choix de procder sur les donnes actuelles ou d'en crer
- *         res = Sp.select_process(nb_config)             # <<<<<<<<<<<<<<
- *         if res == -1:  # Fermeture
- *             print("Fermeture du programme")
- */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Sp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_select_process); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_7)) {
+    PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names, __pyx_v_options};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
+    PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names, __pyx_v_options};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else
+  #endif
+  {
+    __pyx_t_2 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
+    if (__pyx_t_3) {
+      __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_db);
+    __Pyx_GIVEREF(__pyx_v_db);
+    PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_6, __pyx_v_db);
+    __Pyx_INCREF(__pyx_v_db_ids);
+    __Pyx_GIVEREF(__pyx_v_db_ids);
+    PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_6, __pyx_v_db_ids);
+    __Pyx_INCREF(__pyx_v_db_names);
+    __Pyx_GIVEREF(__pyx_v_db_names);
+    PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_6, __pyx_v_db_names);
+    __Pyx_INCREF(__pyx_v_options);
+    __Pyx_GIVEREF(__pyx_v_options);
+    PyTuple_SET_ITEM(__pyx_t_2, 3+__pyx_t_6, __pyx_v_options);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_v_lst_color = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "Interfaces/Main_interface.pyx":82
+ *     lst_color = Sp.select_color(db, db_ids, db_names, options)
+ *     # Affiche les num de configuration et les tailles
+ *     nb_config, _ = Sp.view_config(db, db_ids, db_names)             # <<<<<<<<<<<<<<
+ *     # Choix de procder sur les donnes actuelles ou d'en crer
+ *     res = Sp.select_process(nb_config)
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_Sp); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_view_config); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = NULL;
+  __pyx_t_6 = 0;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_7)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_7);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __pyx_t_6 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_2)) {
+    PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+    PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else
+  #endif
+  {
+    __pyx_t_3 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    if (__pyx_t_7) {
+      __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_7); __pyx_t_7 = NULL;
+    }
+    __Pyx_INCREF(__pyx_v_db);
+    __Pyx_GIVEREF(__pyx_v_db);
+    PyTuple_SET_ITEM(__pyx_t_3, 0+__pyx_t_6, __pyx_v_db);
+    __Pyx_INCREF(__pyx_v_db_ids);
+    __Pyx_GIVEREF(__pyx_v_db_ids);
+    PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_6, __pyx_v_db_ids);
+    __Pyx_INCREF(__pyx_v_db_names);
+    __Pyx_GIVEREF(__pyx_v_db_names);
+    PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_6, __pyx_v_db_names);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
+    PyObject* sequence = __pyx_t_1;
+    Py_ssize_t size = __Pyx_PySequence_SIZE(sequence);
+    if (unlikely(size != 2)) {
+      if (size > 2) __Pyx_RaiseTooManyValuesError(2);
+      else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
+      __PYX_ERR(0, 82, __pyx_L1_error)
+    }
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    if (likely(PyTuple_CheckExact(sequence))) {
+      __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyTuple_GET_ITEM(sequence, 1); 
+    } else {
+      __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
+      __pyx_t_3 = PyList_GET_ITEM(sequence, 1); 
+    }
+    __Pyx_INCREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_t_3);
+    #else
+    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    #endif
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  } else {
+    Py_ssize_t index = -1;
+    __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
+    index = 0; __pyx_t_2 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_2)) goto __pyx_L5_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_2);
+    index = 1; __pyx_t_3 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_3)) goto __pyx_L5_unpacking_failed;
+    __Pyx_GOTREF(__pyx_t_3);
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+    __pyx_t_8 = NULL;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    goto __pyx_L6_unpacking_done;
+    __pyx_L5_unpacking_failed:;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_8 = NULL;
+    if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
+    __PYX_ERR(0, 82, __pyx_L1_error)
+    __pyx_L6_unpacking_done:;
+  }
+  __pyx_v_nb_config = __pyx_t_2;
+  __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(__pyx_v__, __pyx_t_3);
+  __pyx_t_3 = 0;
+
+  /* "Interfaces/Main_interface.pyx":84
+ *     nb_config, _ = Sp.view_config(db, db_ids, db_names)
+ *     # Choix de procder sur les donnes actuelles ou d'en crer
+ *     res = Sp.select_process(nb_config)             # <<<<<<<<<<<<<<
+ *     if res == -1:  # Fermeture
+ *         print("Fermeture du programme")
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Sp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_select_process); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_v_nb_config) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_nb_config);
+  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF_SET(__pyx_v_res, __pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "Interfaces/Main_interface.pyx":85
+ *     # Choix de procder sur les donnes actuelles ou d'en crer
+ *     res = Sp.select_process(nb_config)
+ *     if res == -1:  # Fermeture             # <<<<<<<<<<<<<<
+ *         print("Fermeture du programme")
+ *         return 0
+ */
+  __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_res, __pyx_int_neg_1, -1L, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_4) {
+
+    /* "Interfaces/Main_interface.pyx":86
+ *     res = Sp.select_process(nb_config)
+ *     if res == -1:  # Fermeture
+ *         print("Fermeture du programme")             # <<<<<<<<<<<<<<
+ *         return 0
+ *     elif res == 0:  # Gnration de donnes
+ */
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "Interfaces/Main_interface.pyx":87
+ *     if res == -1:  # Fermeture
+ *         print("Fermeture du programme")
+ *         return 0             # <<<<<<<<<<<<<<
+ *     elif res == 0:  # Gnration de donnes
+ *         Complete_process(db, db_ids, db_names, options, lst_color, path_I)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_INCREF(__pyx_int_0);
+    __pyx_r = __pyx_int_0;
+    goto __pyx_L0;
+
+    /* "Interfaces/Main_interface.pyx":85
+ *     # Choix de procder sur les donnes actuelles ou d'en crer
+ *     res = Sp.select_process(nb_config)
+ *     if res == -1:  # Fermeture             # <<<<<<<<<<<<<<
+ *         print("Fermeture du programme")
+ *         return 0
+ */
+  }
+
+  /* "Interfaces/Main_interface.pyx":88
+ *         print("Fermeture du programme")
+ *         return 0
+ *     elif res == 0:  # Gnration de donnes             # <<<<<<<<<<<<<<
+ *         Complete_process(db, db_ids, db_names, options, lst_color, path_I)
+ *     test = True
+ */
+  __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_res, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 88, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (__pyx_t_4) {
+
+    /* "Interfaces/Main_interface.pyx":89
+ *         return 0
+ *     elif res == 0:  # Gnration de donnes
+ *         Complete_process(db, db_ids, db_names, options, lst_color, path_I)             # <<<<<<<<<<<<<<
+ *     test = True
+ *     ############ Partie Traitement de Donnes ##################
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Complete_process); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
+    __pyx_t_6 = 0;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
       __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
       if (likely(__pyx_t_3)) {
@@ -2657,155 +2742,68 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         __Pyx_INCREF(__pyx_t_3);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_2, function);
+        __pyx_t_6 = 1;
       }
     }
-    __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_v_nb_config) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_nb_config);
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF_SET(__pyx_v_res, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "Interfaces/Main_interface.pyx":85
- *         # Choix de procder sur les donnes actuelles ou d'en crer
- *         res = Sp.select_process(nb_config)
- *         if res == -1:  # Fermeture             # <<<<<<<<<<<<<<
- *             print("Fermeture du programme")
- *             return 0
- */
-    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_res, __pyx_int_neg_1, -1L, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 85, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__pyx_t_4) {
-
-      /* "Interfaces/Main_interface.pyx":86
- *         res = Sp.select_process(nb_config)
- *         if res == -1:  # Fermeture
- *             print("Fermeture du programme")             # <<<<<<<<<<<<<<
- *             return 0
- *         if res == 0:  # Gnration de donnes
- */
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+    #if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(__pyx_t_2)) {
+      PyObject *__pyx_temp[7] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names, __pyx_v_options, __pyx_v_lst_color, __pyx_v_path_I};
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 6+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-      /* "Interfaces/Main_interface.pyx":87
- *         if res == -1:  # Fermeture
- *             print("Fermeture du programme")
- *             return 0             # <<<<<<<<<<<<<<
- *         if res == 0:  # Gnration de donnes
- *             Complete_process(db, db_ids, db_names, options, lst_color, path_I)
- */
-      __Pyx_XDECREF(__pyx_r);
-      __Pyx_INCREF(__pyx_int_0);
-      __pyx_r = __pyx_int_0;
-      goto __pyx_L0;
-
-      /* "Interfaces/Main_interface.pyx":85
- *         # Choix de procder sur les donnes actuelles ou d'en crer
- *         res = Sp.select_process(nb_config)
- *         if res == -1:  # Fermeture             # <<<<<<<<<<<<<<
- *             print("Fermeture du programme")
- *             return 0
- */
+    } else
+    #endif
+    #if CYTHON_FAST_PYCCALL
+    if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+      PyObject *__pyx_temp[7] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names, __pyx_v_options, __pyx_v_lst_color, __pyx_v_path_I};
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 6+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_1);
+    } else
+    #endif
+    {
+      __pyx_t_7 = PyTuple_New(6+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      if (__pyx_t_3) {
+        __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_3); __pyx_t_3 = NULL;
+      }
+      __Pyx_INCREF(__pyx_v_db);
+      __Pyx_GIVEREF(__pyx_v_db);
+      PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_v_db);
+      __Pyx_INCREF(__pyx_v_db_ids);
+      __Pyx_GIVEREF(__pyx_v_db_ids);
+      PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_db_ids);
+      __Pyx_INCREF(__pyx_v_db_names);
+      __Pyx_GIVEREF(__pyx_v_db_names);
+      PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_6, __pyx_v_db_names);
+      __Pyx_INCREF(__pyx_v_options);
+      __Pyx_GIVEREF(__pyx_v_options);
+      PyTuple_SET_ITEM(__pyx_t_7, 3+__pyx_t_6, __pyx_v_options);
+      __Pyx_INCREF(__pyx_v_lst_color);
+      __Pyx_GIVEREF(__pyx_v_lst_color);
+      PyTuple_SET_ITEM(__pyx_t_7, 4+__pyx_t_6, __pyx_v_lst_color);
+      __Pyx_INCREF(__pyx_v_path_I);
+      __Pyx_GIVEREF(__pyx_v_path_I);
+      PyTuple_SET_ITEM(__pyx_t_7, 5+__pyx_t_6, __pyx_v_path_I);
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     }
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
     /* "Interfaces/Main_interface.pyx":88
- *             print("Fermeture du programme")
- *             return 0
- *         if res == 0:  # Gnration de donnes             # <<<<<<<<<<<<<<
- *             Complete_process(db, db_ids, db_names, options, lst_color, path_I)
+ *         print("Fermeture du programme")
+ *         return 0
+ *     elif res == 0:  # Gnration de donnes             # <<<<<<<<<<<<<<
+ *         Complete_process(db, db_ids, db_names, options, lst_color, path_I)
  *     test = True
  */
-    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_res, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 88, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (__pyx_t_4) {
-
-      /* "Interfaces/Main_interface.pyx":89
- *             return 0
- *         if res == 0:  # Gnration de donnes
- *             Complete_process(db, db_ids, db_names, options, lst_color, path_I)             # <<<<<<<<<<<<<<
- *     test = True
- *     ############ Partie Traitement de Donnes ##################
- */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Complete_process); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = NULL;
-      __pyx_t_6 = 0;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
-        __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-        if (likely(__pyx_t_3)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-          __Pyx_INCREF(__pyx_t_3);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_2, function);
-          __pyx_t_6 = 1;
-        }
-      }
-      #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_2)) {
-        PyObject *__pyx_temp[7] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names, __pyx_v_options, __pyx_v_lst_color, __pyx_v_path_I};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 6+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_GOTREF(__pyx_t_1);
-      } else
-      #endif
-      #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-        PyObject *__pyx_temp[7] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_v_db_names, __pyx_v_options, __pyx_v_lst_color, __pyx_v_path_I};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 6+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_GOTREF(__pyx_t_1);
-      } else
-      #endif
-      {
-        __pyx_t_7 = PyTuple_New(6+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 89, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        if (__pyx_t_3) {
-          __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_3); __pyx_t_3 = NULL;
-        }
-        __Pyx_INCREF(__pyx_v_db);
-        __Pyx_GIVEREF(__pyx_v_db);
-        PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, __pyx_v_db);
-        __Pyx_INCREF(__pyx_v_db_ids);
-        __Pyx_GIVEREF(__pyx_v_db_ids);
-        PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_db_ids);
-        __Pyx_INCREF(__pyx_v_db_names);
-        __Pyx_GIVEREF(__pyx_v_db_names);
-        PyTuple_SET_ITEM(__pyx_t_7, 2+__pyx_t_6, __pyx_v_db_names);
-        __Pyx_INCREF(__pyx_v_options);
-        __Pyx_GIVEREF(__pyx_v_options);
-        PyTuple_SET_ITEM(__pyx_t_7, 3+__pyx_t_6, __pyx_v_options);
-        __Pyx_INCREF(__pyx_v_lst_color);
-        __Pyx_GIVEREF(__pyx_v_lst_color);
-        PyTuple_SET_ITEM(__pyx_t_7, 4+__pyx_t_6, __pyx_v_lst_color);
-        __Pyx_INCREF(__pyx_v_path_I);
-        __Pyx_GIVEREF(__pyx_v_path_I);
-        PyTuple_SET_ITEM(__pyx_t_7, 5+__pyx_t_6, __pyx_v_path_I);
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      }
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-      /* "Interfaces/Main_interface.pyx":88
- *             print("Fermeture du programme")
- *             return 0
- *         if res == 0:  # Gnration de donnes             # <<<<<<<<<<<<<<
- *             Complete_process(db, db_ids, db_names, options, lst_color, path_I)
- *     test = True
- */
-    }
   }
 
   /* "Interfaces/Main_interface.pyx":90
- *         if res == 0:  # Gnration de donnes
- *             Complete_process(db, db_ids, db_names, options, lst_color, path_I)
+ *     elif res == 0:  # Gnration de donnes
+ *         Complete_process(db, db_ids, db_names, options, lst_color, path_I)
  *     test = True             # <<<<<<<<<<<<<<
  *     ############ Partie Traitement de Donnes ##################
  *     while test :
@@ -2923,20 +2921,20 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext;
-      index = 0; __pyx_t_7 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_7)) goto __pyx_L11_unpacking_failed;
+      index = 0; __pyx_t_7 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_7)) goto __pyx_L10_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_7);
-      index = 1; __pyx_t_3 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L11_unpacking_failed;
+      index = 1; __pyx_t_3 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L10_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_3);
       if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_2), 2) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      goto __pyx_L12_unpacking_done;
-      __pyx_L11_unpacking_failed:;
+      goto __pyx_L11_unpacking_done;
+      __pyx_L10_unpacking_failed:;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
       __PYX_ERR(0, 96, __pyx_L1_error)
-      __pyx_L12_unpacking_done:;
+      __pyx_L11_unpacking_done:;
     }
     __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -3002,20 +3000,20 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext;
-      index = 0; __pyx_t_7 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_7)) goto __pyx_L13_unpacking_failed;
+      index = 0; __pyx_t_7 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_7)) goto __pyx_L12_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_7);
-      index = 1; __pyx_t_3 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L13_unpacking_failed;
+      index = 1; __pyx_t_3 = __pyx_t_8(__pyx_t_2); if (unlikely(!__pyx_t_3)) goto __pyx_L12_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_3);
       if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_2), 2) < 0) __PYX_ERR(0, 99, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      goto __pyx_L14_unpacking_done;
-      __pyx_L13_unpacking_failed:;
+      goto __pyx_L13_unpacking_done;
+      __pyx_L12_unpacking_failed:;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
       __PYX_ERR(0, 99, __pyx_L1_error)
-      __pyx_L14_unpacking_done:;
+      __pyx_L13_unpacking_done:;
     }
     __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -3028,7 +3026,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *         # lst_motifs regroupe les motifs correspondant aux critres - {_id : sign}
  *         if Multi_size :             # <<<<<<<<<<<<<<
  *             # 1ere taille
- *             lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0])
+ *             lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0], lst_color)
  */
     __pyx_t_4 = (__pyx_v_Multi_size != 0);
     if (__pyx_t_4) {
@@ -3036,9 +3034,9 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       /* "Interfaces/Main_interface.pyx":105
  *         if Multi_size :
  *             # 1ere taille
- *             lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0])             # <<<<<<<<<<<<<<
+ *             lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0], lst_color)             # <<<<<<<<<<<<<<
  *             # 2eme taille
- *             lst_motifs2 = Sp.test_filter(db, db_ids, tab_size[1])
+ *             lst_motifs2 = Sp.test_filter(db, db_ids, tab_size[1], lst_color)
  */
       __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_Sp); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
@@ -3061,8 +3059,8 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       }
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_7)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_v_db, __pyx_v_db_ids, __pyx_t_3};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+        PyObject *__pyx_temp[5] = {__pyx_t_2, __pyx_v_db, __pyx_v_db_ids, __pyx_t_3, __pyx_v_lst_color};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3070,15 +3068,15 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_v_db, __pyx_v_db_ids, __pyx_t_3};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+        PyObject *__pyx_temp[5] = {__pyx_t_2, __pyx_v_db, __pyx_v_db_ids, __pyx_t_3, __pyx_v_lst_color};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_5 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         if (__pyx_t_2) {
           __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -3091,6 +3089,9 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         PyTuple_SET_ITEM(__pyx_t_5, 1+__pyx_t_6, __pyx_v_db_ids);
         __Pyx_GIVEREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_5, 2+__pyx_t_6, __pyx_t_3);
+        __Pyx_INCREF(__pyx_v_lst_color);
+        __Pyx_GIVEREF(__pyx_v_lst_color);
+        PyTuple_SET_ITEM(__pyx_t_5, 3+__pyx_t_6, __pyx_v_lst_color);
         __pyx_t_3 = 0;
         __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
@@ -3101,9 +3102,9 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       __pyx_t_1 = 0;
 
       /* "Interfaces/Main_interface.pyx":107
- *             lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0])
+ *             lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0], lst_color)
  *             # 2eme taille
- *             lst_motifs2 = Sp.test_filter(db, db_ids, tab_size[1])             # <<<<<<<<<<<<<<
+ *             lst_motifs2 = Sp.test_filter(db, db_ids, tab_size[1], lst_color)             # <<<<<<<<<<<<<<
  *         else :
  *             # taille unique
  */
@@ -3128,8 +3129,8 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       }
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_t_7};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
+        PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_t_7, __pyx_v_lst_color};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -3137,15 +3138,15 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_t_7};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
+        PyObject *__pyx_temp[5] = {__pyx_t_3, __pyx_v_db, __pyx_v_db_ids, __pyx_t_7, __pyx_v_lst_color};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       } else
       #endif
       {
-        __pyx_t_2 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
+        __pyx_t_2 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         if (__pyx_t_3) {
           __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -3158,6 +3159,9 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_6, __pyx_v_db_ids);
         __Pyx_GIVEREF(__pyx_t_7);
         PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_6, __pyx_t_7);
+        __Pyx_INCREF(__pyx_v_lst_color);
+        __Pyx_GIVEREF(__pyx_v_lst_color);
+        PyTuple_SET_ITEM(__pyx_t_2, 3+__pyx_t_6, __pyx_v_lst_color);
         __pyx_t_7 = 0;
         __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
@@ -3172,15 +3176,15 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *         # lst_motifs regroupe les motifs correspondant aux critres - {_id : sign}
  *         if Multi_size :             # <<<<<<<<<<<<<<
  *             # 1ere taille
- *             lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0])
+ *             lst_motifs1 = Sp.test_filter(db, db_ids, tab_size[0], lst_color)
  */
-      goto __pyx_L15;
+      goto __pyx_L14;
     }
 
     /* "Interfaces/Main_interface.pyx":110
  *         else :
  *             # taille unique
- *             lst_motifs = Sp.test_filter(db, db_ids, tab_size[0])             # <<<<<<<<<<<<<<
+ *             lst_motifs = Sp.test_filter(db, db_ids, tab_size[0], lst_color)             # <<<<<<<<<<<<<<
  * 
  *         # Nombre de comparaison  faire et test des longueurs des listes
  */
@@ -3206,8 +3210,8 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       }
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_2)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_db, __pyx_v_db_ids, __pyx_t_5};
-        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+        PyObject *__pyx_temp[5] = {__pyx_t_7, __pyx_v_db, __pyx_v_db_ids, __pyx_t_5, __pyx_v_lst_color};
+        __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -3215,15 +3219,15 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_v_db, __pyx_v_db_ids, __pyx_t_5};
-        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 3+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+        PyObject *__pyx_temp[5] = {__pyx_t_7, __pyx_v_db, __pyx_v_db_ids, __pyx_t_5, __pyx_v_lst_color};
+        __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_6, 4+__pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       } else
       #endif
       {
-        __pyx_t_3 = PyTuple_New(3+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(4+__pyx_t_6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 110, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         if (__pyx_t_7) {
           __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -3236,6 +3240,9 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_6, __pyx_v_db_ids);
         __Pyx_GIVEREF(__pyx_t_5);
         PyTuple_SET_ITEM(__pyx_t_3, 2+__pyx_t_6, __pyx_t_5);
+        __Pyx_INCREF(__pyx_v_lst_color);
+        __Pyx_GIVEREF(__pyx_v_lst_color);
+        PyTuple_SET_ITEM(__pyx_t_3, 3+__pyx_t_6, __pyx_v_lst_color);
         __pyx_t_5 = 0;
         __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
@@ -3245,7 +3252,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       __Pyx_XDECREF_SET(__pyx_v_lst_motifs, __pyx_t_1);
       __pyx_t_1 = 0;
     }
-    __pyx_L15:;
+    __pyx_L14:;
 
     /* "Interfaces/Main_interface.pyx":113
  * 
@@ -3280,13 +3287,13 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
       if (!__pyx_t_10) {
       } else {
         __pyx_t_4 = __pyx_t_10;
-        goto __pyx_L18_bool_binop_done;
+        goto __pyx_L17_bool_binop_done;
       }
       if (unlikely(!__pyx_v_lst_motifs2)) { __Pyx_RaiseUnboundLocalError("lst_motifs2"); __PYX_ERR(0, 115, __pyx_L1_error) }
       __pyx_t_9 = PyObject_Length(__pyx_v_lst_motifs2); if (unlikely(__pyx_t_9 == ((Py_ssize_t)-1))) __PYX_ERR(0, 115, __pyx_L1_error)
       __pyx_t_10 = ((__pyx_t_9 == 0) != 0);
       __pyx_t_4 = __pyx_t_10;
-      __pyx_L18_bool_binop_done:;
+      __pyx_L17_bool_binop_done:;
       if (__pyx_t_4) {
 
         /* "Interfaces/Main_interface.pyx":116
@@ -3316,7 +3323,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                 test = True
  *                 print("Une liste est vide.")
  */
-        goto __pyx_L17;
+        goto __pyx_L16;
       }
 
       /* "Interfaces/Main_interface.pyx":119
@@ -3336,7 +3343,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         __Pyx_DECREF_SET(__pyx_v_nb_comp, __pyx_t_1);
         __pyx_t_1 = 0;
       }
-      __pyx_L17:;
+      __pyx_L16:;
 
       /* "Interfaces/Main_interface.pyx":114
  *         # Nombre de comparaison  faire et test des longueurs des listes
@@ -3345,7 +3352,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *             if len(lst_motifs1) == 0 or len(lst_motifs2) == 0:
  *                 test = True
  */
-      goto __pyx_L16;
+      goto __pyx_L15;
     }
 
     /* "Interfaces/Main_interface.pyx":121
@@ -3388,7 +3395,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                 test = True
  *                 print("La liste est vide.")
  */
-        goto __pyx_L20;
+        goto __pyx_L19;
       }
 
       /* "Interfaces/Main_interface.pyx":125
@@ -3420,9 +3427,9 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         __Pyx_DECREF_SET(__pyx_v_nb_comp, __pyx_t_1);
         __pyx_t_1 = 0;
       }
-      __pyx_L20:;
+      __pyx_L19:;
     }
-    __pyx_L16:;
+    __pyx_L15:;
 
     /* "Interfaces/Main_interface.pyx":128
  *                 nb_comp = nb_comp/2
@@ -3588,14 +3595,14 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         if (__pyx_t_10) {
         } else {
           __pyx_t_4 = __pyx_t_10;
-          goto __pyx_L24_bool_binop_done;
+          goto __pyx_L23_bool_binop_done;
         }
         __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_db_ids, 3, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_t_10 = (__Pyx_PyUnicode_Equals(__pyx_t_1, __pyx_kp_u_, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 137, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __pyx_t_4 = __pyx_t_10;
-        __pyx_L24_bool_binop_done:;
+        __pyx_L23_bool_binop_done:;
         if (!__pyx_t_4) break;
 
         /* "Interfaces/Main_interface.pyx":138
@@ -3681,11 +3688,11 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         if (__pyx_t_10) {
         } else {
           __pyx_t_4 = __pyx_t_10;
-          goto __pyx_L27_bool_binop_done;
+          goto __pyx_L26_bool_binop_done;
         }
         __pyx_t_10 = (__pyx_v_Multi_size != 0);
         __pyx_t_4 = __pyx_t_10;
-        __pyx_L27_bool_binop_done:;
+        __pyx_L26_bool_binop_done:;
         if (__pyx_t_4) {
 
           /* "Interfaces/Main_interface.pyx":140
@@ -3704,7 +3711,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
           if (__pyx_t_12) {
           } else {
             __pyx_t_4 = __pyx_t_12;
-            goto __pyx_L30_bool_binop_done;
+            goto __pyx_L29_bool_binop_done;
           }
           __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_db_ids, 3, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
@@ -3713,7 +3720,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __pyx_t_10 = (__pyx_t_12 != 0);
           __pyx_t_4 = __pyx_t_10;
-          __pyx_L30_bool_binop_done:;
+          __pyx_L29_bool_binop_done:;
           if (__pyx_t_4) {
 
             /* "Interfaces/Main_interface.pyx":141
@@ -3818,7 +3825,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                     if db_ids[3] not in lst_motifs1 and db_ids[3] not in lst_motifs2 :
  *                         print("Le motif cibl ne correspond pas aux filtres.")
  */
-          goto __pyx_L26;
+          goto __pyx_L25;
         }
 
         /* "Interfaces/Main_interface.pyx":144
@@ -3835,11 +3842,11 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         if (__pyx_t_10) {
         } else {
           __pyx_t_4 = __pyx_t_10;
-          goto __pyx_L32_bool_binop_done;
+          goto __pyx_L31_bool_binop_done;
         }
         __pyx_t_10 = ((!(__pyx_v_Multi_size != 0)) != 0);
         __pyx_t_4 = __pyx_t_10;
-        __pyx_L32_bool_binop_done:;
+        __pyx_L31_bool_binop_done:;
         if (__pyx_t_4) {
 
           /* "Interfaces/Main_interface.pyx":145
@@ -3960,7 +3967,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                         print("Le motif cibl ne correspond pas au filtre.")
  */
         }
-        __pyx_L26:;
+        __pyx_L25:;
       }
 
       /* "Interfaces/Main_interface.pyx":151
@@ -4100,7 +4107,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                 # Correction si choix asymtrique
  *                 if options[2] == 2:
  */
-        goto __pyx_L35;
+        goto __pyx_L34;
       }
 
       /* "Interfaces/Main_interface.pyx":159
@@ -4179,7 +4186,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         __Pyx_XDECREF_SET(__pyx_v_pipeline, __pyx_t_2);
         __pyx_t_2 = 0;
       }
-      __pyx_L35:;
+      __pyx_L34:;
 
       /* "Interfaces/Main_interface.pyx":161
  *                 pipeline = Fp.unique_config(db_ids[0], db_ids[1], db_ids[2])
@@ -4287,20 +4294,20 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
           __Pyx_GOTREF(__pyx_t_13);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __pyx_t_8 = Py_TYPE(__pyx_t_13)->tp_iternext;
-          index = 0; __pyx_t_14 = __pyx_t_8(__pyx_t_13); if (unlikely(!__pyx_t_14)) goto __pyx_L38_unpacking_failed;
+          index = 0; __pyx_t_14 = __pyx_t_8(__pyx_t_13); if (unlikely(!__pyx_t_14)) goto __pyx_L37_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_14);
-          index = 1; __pyx_t_1 = __pyx_t_8(__pyx_t_13); if (unlikely(!__pyx_t_1)) goto __pyx_L38_unpacking_failed;
+          index = 1; __pyx_t_1 = __pyx_t_8(__pyx_t_13); if (unlikely(!__pyx_t_1)) goto __pyx_L37_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_1);
           if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_13), 2) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
           __pyx_t_8 = NULL;
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-          goto __pyx_L39_unpacking_done;
-          __pyx_L38_unpacking_failed:;
+          goto __pyx_L38_unpacking_done;
+          __pyx_L37_unpacking_failed:;
           __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
           __pyx_t_8 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
           __PYX_ERR(0, 162, __pyx_L1_error)
-          __pyx_L39_unpacking_done:;
+          __pyx_L38_unpacking_done:;
         }
         if (unlikely(__Pyx_SetItemInt(__pyx_v_tab_res, 0, __pyx_t_14, long, 1, __Pyx_PyInt_From_long, 1, 0, 1) < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -4322,7 +4329,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         if (!__pyx_t_4) {
         } else {
           __pyx_t_10 = __pyx_t_4;
-          goto __pyx_L41_bool_binop_done;
+          goto __pyx_L40_bool_binop_done;
         }
         __pyx_t_2 = __Pyx_GetItemInt_List(__pyx_v_tab_res, 1, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
@@ -4330,7 +4337,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_4 = ((__pyx_t_9 == 0) != 0);
         __pyx_t_10 = __pyx_t_4;
-        __pyx_L41_bool_binop_done:;
+        __pyx_L40_bool_binop_done:;
         if (__pyx_t_10) {
 
           /* "Interfaces/Main_interface.pyx":164
@@ -4441,7 +4448,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                     test = True
  *                     if len(tab_res[0])==0:
  */
-          goto __pyx_L40;
+          goto __pyx_L39;
         }
 
         /* "Interfaces/Main_interface.pyx":170
@@ -4488,7 +4495,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
           __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
-        __pyx_L40:;
+        __pyx_L39:;
 
         /* "Interfaces/Main_interface.pyx":161
  *                 pipeline = Fp.unique_config(db_ids[0], db_ids[1], db_ids[2])
@@ -4497,7 +4504,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                 tab_res[0], tab_res[1] = Fp.construct_2tab(db, pipeline, lst_motifs1, lst_motifs2)
  *                 if len(tab_res[0]) == 0 or len(tab_res[1]) == 0:
  */
-        goto __pyx_L37;
+        goto __pyx_L36;
       }
 
       /* "Interfaces/Main_interface.pyx":172
@@ -4618,7 +4625,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                     test = True
  *                     print("Aucun motif de taille "+str(tab_size[0])+" slectionn.")
  */
-          goto __pyx_L45;
+          goto __pyx_L44;
         }
 
         /* "Interfaces/Main_interface.pyx":177
@@ -4649,9 +4656,9 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         }
-        __pyx_L45:;
+        __pyx_L44:;
       }
-      __pyx_L37:;
+      __pyx_L36:;
 
       /* "Interfaces/Main_interface.pyx":128
  *                 nb_comp = nb_comp/2
@@ -4769,7 +4776,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                 tab_sim = Fp.construct_matrix_2g(db, options[2], tab_res[0], tab_res[1])
  *             else :
  */
-        goto __pyx_L47;
+        goto __pyx_L46;
       }
 
       /* "Interfaces/Main_interface.pyx":184
@@ -4845,7 +4852,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         __Pyx_XDECREF_SET(__pyx_v_tab_sim, __pyx_t_2);
         __pyx_t_2 = 0;
       }
-      __pyx_L47:;
+      __pyx_L46:;
 
       /* "Interfaces/Main_interface.pyx":185
  *             else :
@@ -5032,7 +5039,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
  *                 Gd.draw_result_2size(db_names[0], name, tab_size, tab_res, options[3], db_ids[3], tab_sim, options[2])
  *             else :
  */
-        goto __pyx_L48;
+        goto __pyx_L47;
       }
 
       /* "Interfaces/Main_interface.pyx":189
@@ -5138,7 +5145,7 @@ static PyObject *__pyx_pf_10Interfaces_14Main_interface_interface(CYTHON_UNUSED 
         __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       }
-      __pyx_L48:;
+      __pyx_L47:;
 
       /* "Interfaces/Main_interface.pyx":179
  *                     print("Il y a "+str(len(tab_res[0]))+ " motifs tudis.")
@@ -6519,7 +6526,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *     if res == -1:  # Fermeture
  *         print("Tentatives puises - Fermeture du programme")             # <<<<<<<<<<<<<<
  *         return 0
- *     else:
+ * 
  */
   __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_Tentatives_puises_Fermeture_du_p); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);

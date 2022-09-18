@@ -22,6 +22,8 @@ import matplotlib.colors as clr
 import matplotlib.colorbar as colorbar
 from Outputs.texture import *
 
+from Interfaces import Final_process as Fp
+
 temp_x = 0
 temp_y = 0
 x = 'not a float, ce texte vérifie que user a bien choisi une case de la mat de chaleur'
@@ -37,6 +39,9 @@ class MplCanvas(FigureCanvasQTAgg):
         self.parent = parent
         self.parent.x = 0
         self.parent.y = 0
+        print('test')
+        print(self.parent.parent.send_t1)
+
         ### def draw_result_2size(dir_O, name, tab_size, tab_res, cible, motif_id, tab_sim, num_type):
         # init values
         tab_sim = []
@@ -54,6 +59,25 @@ class MplCanvas(FigureCanvasQTAgg):
         pointer = {'x':None, 'y':None}
         num_type = {1: 1, 2: 2, 3:3,4:4,5:5}
 
+        ### tentative d'ajouter les listes directement depuis la bdd
+        
+        print(self.parent.parent.db_ids)
+
+        # Formation des distributions
+        tab_res = [None, None]
+        #pipeline = Fp.unique_config(db_ids[0], db_ids[1], db_ids[2])
+        #tab_res[0] = Fp.construct_1tab(self.parent.parent.db, pipeline, lst_motifs)
+        pointer = {'x':None, 'y':None}
+        #lst_id, lst_occ, lst_cover = Gd.split_tab_res(tab_res, fid, cible, motif_id, pointer, ['x','y'])
+
+        '''
+        pointer = {'x':None, 'y':None}
+        pipeline = Fp.complete_struct(db_ids[0], db_ids[1])
+        tab_res = [None, None]
+        tab_res[0], tab_res[1] = Fp.construct_2tab(self.parent.parent.db,
+                                     pipeline, lst_motifs1, lst_motifs2)
+        lst_id, lst_occ, lst_cover = Gd.split_tab_res(tab_res, fid, cible, motif_id, pointer, ['x','y'])
+        '''
         # Valeurs :
         lenght = max(len(lst_id_y), len(lst_id_x))
         step = int(lenght / 20) + 1

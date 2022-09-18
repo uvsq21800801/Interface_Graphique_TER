@@ -4874,6 +4874,7 @@ static PyObject *__pyx_pf_10Interfaces_13Study_process_6search_sizes(CYTHON_UNUS
   PyObject *__pyx_t_7 = NULL;
   int __pyx_t_8;
   Py_ssize_t __pyx_t_9;
+  int __pyx_t_10;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5126,24 +5127,13 @@ static PyObject *__pyx_pf_10Interfaces_13Study_process_6search_sizes(CYTHON_UNUS
     /* "Interfaces/Study_process.pyx":204
  *             }
  *         )
- *         dict(result)             # <<<<<<<<<<<<<<
- *         for i in list(result["sizes"]):
- *             sizes.remove(i)
- */
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyDict_Type)), __pyx_v_result); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 204, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "Interfaces/Study_process.pyx":205
- *         )
- *         dict(result)
  *         for i in list(result["sizes"]):             # <<<<<<<<<<<<<<
- *             sizes.remove(i)
- *     return sizes
+ *             if i in sizes:
+ *                 sizes.remove(i)
  */
-    __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_result, __pyx_n_u_sizes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 205, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_result, __pyx_n_u_sizes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 204, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
+    __pyx_t_1 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_9 = 0;
@@ -5151,45 +5141,65 @@ static PyObject *__pyx_pf_10Interfaces_13Study_process_6search_sizes(CYTHON_UNUS
     for (;;) {
       if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_2)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 205, __pyx_L1_error)
+      __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 204, __pyx_L1_error)
       #else
-      __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
+      __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       #endif
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "Interfaces/Study_process.pyx":206
- *         dict(result)
- *         for i in list(result["sizes"]):
- *             sizes.remove(i)             # <<<<<<<<<<<<<<
- *     return sizes
- */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_sizes, __pyx_n_s_remove); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 206, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_4 = NULL;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-        if (likely(__pyx_t_4)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-          __Pyx_INCREF(__pyx_t_4);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_3, function);
-        }
-      }
-      __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_i) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_i);
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
       /* "Interfaces/Study_process.pyx":205
  *         )
- *         dict(result)
- *         for i in list(result["sizes"]):             # <<<<<<<<<<<<<<
- *             sizes.remove(i)
+ *         for i in list(result["sizes"]):
+ *             if i in sizes:             # <<<<<<<<<<<<<<
+ *                 sizes.remove(i)
  *     return sizes
+ */
+      __pyx_t_8 = (__Pyx_PySequence_ContainsTF(__pyx_v_i, __pyx_v_sizes, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 205, __pyx_L1_error)
+      __pyx_t_10 = (__pyx_t_8 != 0);
+      if (__pyx_t_10) {
+
+        /* "Interfaces/Study_process.pyx":206
+ *         for i in list(result["sizes"]):
+ *             if i in sizes:
+ *                 sizes.remove(i)             # <<<<<<<<<<<<<<
+ *     return sizes
+ */
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_sizes, __pyx_n_s_remove); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 206, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_4 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+          if (likely(__pyx_t_4)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+            __Pyx_INCREF(__pyx_t_4);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_3, function);
+          }
+        }
+        __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_i) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_i);
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+        /* "Interfaces/Study_process.pyx":205
+ *         )
+ *         for i in list(result["sizes"]):
+ *             if i in sizes:             # <<<<<<<<<<<<<<
+ *                 sizes.remove(i)
+ *     return sizes
+ */
+      }
+
+      /* "Interfaces/Study_process.pyx":204
+ *             }
+ *         )
+ *         for i in list(result["sizes"]):             # <<<<<<<<<<<<<<
+ *             if i in sizes:
+ *                 sizes.remove(i)
  */
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5204,8 +5214,8 @@ static PyObject *__pyx_pf_10Interfaces_13Study_process_6search_sizes(CYTHON_UNUS
   }
 
   /* "Interfaces/Study_process.pyx":207
- *         for i in list(result["sizes"]):
- *             sizes.remove(i)
+ *             if i in sizes:
+ *                 sizes.remove(i)
  *     return sizes             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);

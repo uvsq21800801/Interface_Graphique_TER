@@ -6986,7 +6986,7 @@ static PyObject *__pyx_pf_10Files_read_16read_parameters_file(CYTHON_UNUSED PyOb
  *             return 1, f[1], None, None, None
  *         elif 'S' in f[0] and len(f) >= 5:             # <<<<<<<<<<<<<<
  *             return 2, f[1], f[2], f[3], f[4]
- *         else :
+ *     return 0, None, None, None, None
  */
     __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_f, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -7008,8 +7008,7 @@ static PyObject *__pyx_pf_10Files_read_16read_parameters_file(CYTHON_UNUSED PyOb
  *             return 1, f[1], None, None, None
  *         elif 'S' in f[0] and len(f) >= 5:
  *             return 2, f[1], f[2], f[3], f[4]             # <<<<<<<<<<<<<<
- *         else :
- *             return 0, None, None, None, None
+ *     return 0, None, None, None, None
  */
       __Pyx_XDECREF(__pyx_r);
       __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_f, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
@@ -7046,20 +7045,8 @@ static PyObject *__pyx_pf_10Files_read_16read_parameters_file(CYTHON_UNUSED PyOb
  *             return 1, f[1], None, None, None
  *         elif 'S' in f[0] and len(f) >= 5:             # <<<<<<<<<<<<<<
  *             return 2, f[1], f[2], f[3], f[4]
- *         else :
+ *     return 0, None, None, None, None
  */
-    }
-
-    /* "Files_read.pyx":211
- *             return 2, f[1], f[2], f[3], f[4]
- *         else :
- *             return 0, None, None, None, None             # <<<<<<<<<<<<<<
- */
-    /*else*/ {
-      __Pyx_XDECREF(__pyx_r);
-      __Pyx_INCREF(__pyx_tuple__5);
-      __pyx_r = __pyx_tuple__5;
-      goto __pyx_L0;
     }
 
     /* "Files_read.pyx":203
@@ -7071,6 +7058,16 @@ static PyObject *__pyx_pf_10Files_read_16read_parameters_file(CYTHON_UNUSED PyOb
  */
   }
 
+  /* "Files_read.pyx":210
+ *         elif 'S' in f[0] and len(f) >= 5:
+ *             return 2, f[1], f[2], f[3], f[4]
+ *     return 0, None, None, None, None             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_tuple__5);
+  __pyx_r = __pyx_tuple__5;
+  goto __pyx_L0;
+
   /* "Files_read.pyx":202
  *     return sign
  * 
@@ -7080,8 +7077,6 @@ static PyObject *__pyx_pf_10Files_read_16read_parameters_file(CYTHON_UNUSED PyOb
  */
 
   /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
@@ -8318,12 +8313,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "Files_read.pyx":211
+  /* "Files_read.pyx":210
+ *         elif 'S' in f[0] and len(f) >= 5:
  *             return 2, f[1], f[2], f[3], f[4]
- *         else :
- *             return 0, None, None, None, None             # <<<<<<<<<<<<<<
+ *     return 0, None, None, None, None             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__5 = PyTuple_Pack(5, __pyx_int_0, Py_None, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(5, __pyx_int_0, Py_None, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 

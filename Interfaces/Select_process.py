@@ -138,12 +138,14 @@ def select_config(db, db_ids, db_names):
 #       2 : degré maximum [1 ; n] n étant le cas nul
 #       3 : présence d'atome OW
 #       3 : présence de liaison H
-def select_filter(nb_v):
+def select_filter(nb_v, lst_color): 
     # Définition du filtre
-    question = "Nombre de lien par rapport au nombre de sommet N?"
+    question = "Nombre de lien dans le motif?"
+    if nb_v == 3 :
+        nb_b = Ta.terminal_question_choice(question, ["Aucun", "= 2", "= 3"])
     nb_b = (
         Ta.terminal_question_choice(
-            question, ["Aucun", "= N-1", "= N", "> N"]
+            question, ["Aucun", "= "+str(nb_v-1), "= "+str(nb_v), "> "+str(nb_v)]
         )
         - 2
     )
@@ -160,18 +162,26 @@ def select_filter(nb_v):
         )
     else:
         degre_max = Ta.terminal_input_num_borne(
-            "Degre maximum (=" + str(nb_v) + " aucune filtre):", degre_min, nb_v
+            "Degre maximum (= " + str(nb_v) + " aucune filtre):", degre_min, nb_v
         )
     if degre_max == nb_v:
         degre_max = None
+    question = "Motif contenant au moins une fois le(s) élément(s)?"
+    lst_in = Ta.terminal_question_text_choice(question,lst_color)
+    question = "Motif contenant aucune fois le(s) élément(s)?"
+    lst_out = Ta.terminal_question_text_choice(question,lst_color)
+    if lst_out != None:
+        lst_elem = []
+        for elem in lst_color :
+            if elem not in lst_out:
+                lst_elem.append(elem)
+        if len(lst_elem) == 0:
+            lst_elem = None
     res = [None, True, False]
-    question = "Motif contenant un oxygène appartenant à une molécule d'eau?"
-    ow_bool = Ta.terminal_question_choice(question,["Pas de filtre", "Au moins 1", "Aucun"])
-    ow_bool = res[ow_bool]
     question = "Motif contenant une liaison hydrogène?"
     h_bool = Ta.terminal_question_choice(question,["Pas de filtre", "Au moins 1", "Aucune"])
     h_bool = res[h_bool]
-    return [nb_b, degre_min, degre_max, ow_bool, h_bool]
+    return [nb_b, degre_min, degre_max, lst_in, lst_elem, h_bool]
 
 # Sélectionne les motifs selon leur coloration, taille et un filtre
 def select_motifs(coll, db_ids, size, filter):
@@ -186,26 +196,32 @@ def select_motifs(coll, db_ids, size, filter):
         test["degre_min"] = filter[1]
     if filter[2] != None:
         test["degre_max"] = filter[2]
-    if filter[3] != None:
-        test["haveOW"] = filter[3]
-    if filter[4] != None:
-        test["haveHbond"] = filter[4]
+    if filter[3] != None or filter[4] != None:
+        test["$and"] = []
+        if filter[4] != None:
+            test["$and"].append({'lst_v': {'$not': {'$elemMatch': {'$nin': filter[4]}}}})
+        if filter[3] != None:
+            for elem in filter[3]:
+                test["$and"].append({'lst_v':elem})
+    if filter[5] != None:
+        test["haveHbond"] = filter[5]
+    print(test)
     for data in coll.aggregate(Fp.pipeline_motif_filter_struct(db_ids, test)):
         lst_res.append(data["_id"])
     return lst_res
 
 # Cherche un filtre pour une taille et une coloration données
-def test_filter(db, db_ids, size):
+def test_filter(db, db_ids, size, lst_color):
     question = "Appliquer un filtre sur les motifs de taille "+str(size)+"?"
     message = "Filtre"
     if Ta.terminal_question_On(question, message, "Oui", True):
-        tab_filter = select_filter(size)
+        tab_filter = select_filter(size, lst_color)
     else :
-        tab_filter = [None, None, None, None, None]
+        tab_filter = [None, None, None, None, None, None]
     lst_motifs = select_motifs(db.motifs, db_ids, size, tab_filter)
     print(str(len(lst_motifs))+" motifs correspondant parmi les informations sur cette structure.")
     while Ta.terminal_question_On("Changer le filtre?", "", "Non", False):
-        tab_filter = select_filter(size)
+        tab_filter = select_filter(size, lst_color)
         lst_motifs = select_motifs(db.motifs, db_ids, size, tab_filter)
         print(str(len(lst_motifs))+" motifs correspondant parmi les informations sur cette structure.")
     return lst_motifs

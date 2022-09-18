@@ -201,7 +201,7 @@ def search_sizes(config, db_ids, conf_num, sizes_tot):
                 "number": conf_num,
             }
         )
-        dict(result)
         for i in list(result["sizes"]):
-            sizes.remove(i)
+            if i in sizes:
+                sizes.remove(i)
     return sizes
