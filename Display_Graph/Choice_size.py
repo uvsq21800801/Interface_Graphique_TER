@@ -25,11 +25,19 @@ class db_ids:
         self.motif_spe_id = ""
 '''
 
+from Interfaces import Final_process as Fp
+
 class MenuWindow(QMainWindow):
     def __init__(self):
         super(MenuWindow, self).__init__()
         self.setWindowTitle("Choix de taille")
         
+        # les options pour certaines fonctions:
+        #      0 : Hydrogène conservé?
+        #      1 : Tailles traitées
+        #      2 : Type de Similarité
+        #      3 : Motif spécifique?
+        self.options = [False, 0, 0, False]
         # Misc/initialisation de structures de transfert
         # les identifiants de la BDD (format _id)
         #      0 : structure (_id)
@@ -282,8 +290,6 @@ class MenuWindow(QMainWindow):
     def validate(self):
         self.send_interf = self.combo_interf.currentText()
         self.send_conf = self.combo_conf.currentText()
-        self.send_t1 = self.sizeComboB1.currentText()
-        self.send_t2 = self.sizeComboB2.currentText()
         self.send_r1 = self.radio_1.isChecked()
         self.send_r2 = self.radio_2.isChecked()
 
@@ -298,6 +304,12 @@ class MenuWindow(QMainWindow):
         self.db_names[0] = str(self.combo_interf.currentText())
         self.db_names[1] = str(self.combo_color.currentText())
         self.db_names[2] = int(self.combo_conf.currentText())
+        self.taille1 = self.sizeComboB1.currentText()
+        if self.radio_2.isChecked():
+            self.taille2 = self.sizeComboB2.currentText()
+        else:
+            self.taille2 = self.sizeComboB1.currentText()
+
         #self.db_names[1] = str(self.combo_conf.currentText())
          
         #nb_config, _ = Sp.view_config(self.db, self.db_ids, self.db_names)
@@ -309,6 +321,8 @@ class MenuWindow(QMainWindow):
         
         print ([int(self.sizeComboB1.currentText())])
         #print(nb_config)
+        print("self.options")
+        print(self.options)
         print('fin dict conf')
         
         # cribles à ajouter quand j'aurais le temps
@@ -322,16 +336,58 @@ class MenuWindow(QMainWindow):
         print("lst_color")
         print(lst_color)
 
-        self.lst_motifs1 = Sp.test_filter(self.db, self.db_ids, [int(self.sizeComboB1.currentText())], lst_color)
+        self.lst_motifs1 = Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB1.currentText()), lst_color)
         if self.radio_1.isChecked():
-            self.lst_motifs2 = Sp.test_filter(self.db, self.db_ids, [int(self.sizeComboB1.currentText())], lst_color)
+            self.lst_motifs2 = Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB1.currentText()), lst_color)
         else:
             self.lst_motifs2 = self.lst_motifs1.copy()
-            #Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB2.currentText()), temp_lst_color)
-        print(self.lst_motifs1)
-        print("aaa")
-        print(self.lst_motifs2)
+            
+        # Nombre de comparaison à faire et test des longueurs des listes
+        nb_comp = 0
+        if self.radio_2.isChecked(): # = plusieurs tailles
+        #if Multi_size :
+            if len(self.lst_motifs1) == 0 or len(self.lst_motifs2) == 0:
+                test = True
+                print("Une liste est vide.")
+            else :
+                nb_comp = len(self.lst_motifs1)*len(self.lst_motifs2)
+        else :
+            if len(self.lst_motifs1) == 0:
+                test = True
+                print("La liste est vide.")
+            else :
+                nb_comp = len(self.lst_motifs1)*(len(self.lst_motifs1)-1)
+                nb_comp = nb_comp/2
+        print("Il y a jusqu'à "+str(int(nb_comp))+" comparaisons à analyser.")
 
+        # choix du type de simmilarité (à retirer le 0, aucune sim)
+        self.options[2] = Sp.select_metric()
+
+        ## Formation des distributions
+        self.tab_res = [None, None]
+        # Choix du filtre (Une ou plusieurs config)
+        pipeline = Fp.unique_config(self.db_ids[0], self.db_ids[1], self.db_ids[2])
+        # Construction des distributions
+        if self.radio_2.isChecked(): # = plusieurs tailles
+            self.tab_res[0], self.tab_res[1] = Fp.construct_2tab(self.db, pipeline, self.lst_motifs1, self.lst_motifs2)
+            if len(self.tab_res[0]) == 0 or len(self.tab_res[1]) == 0:
+                test = True
+                if len(self.tab_res[0])==0:
+                    print("Aucun motif de taille "+str(self.taille1)+" sélectionné.")
+                if len(self.tab_res[1])==0:
+                    print("Aucun motif de taille "+str(self.taille2)+" sélectionné.")
+            else :
+                print("Il y a "+str(len(self.tab_res[0]))+" et "+str(len(self.tab_res[1]))+ " motifs étudiés.")
+        else :
+            self.tab_res[0] = Fp.construct_1tab(self.db, pipeline, self.lst_motifs1)
+            if len(self.tab_res[0]) == 0:
+                test = True
+                print("Aucun motif de taille "+str(self.taille1)+" sélectionné.")
+            else :
+                print("Il y a "+str(len(self.tab_res[0]))+ " motifs étudiés.")
+
+        print("self.tab_res")
+        print(self.tab_res)
 
         # appel de la nouvelle fenêtre
         self.w = Clickable_display.InteractiveWindow(parent=self)
@@ -339,10 +395,10 @@ class MenuWindow(QMainWindow):
 
         # gestion d'erreur (pas encore fait)
         cdt = "A sélectionner"
-        if self.send_t1 != cdt and self.send_interf != cdt and self.send_conf != cdt: 
+        #if self.send_t1 != cdt and self.send_interf != cdt and self.send_conf != cdt: 
             
             
-            '''
+        '''
             if r2 and t2 != cdt:
                 print("call nice windowo 2")
             if r1:

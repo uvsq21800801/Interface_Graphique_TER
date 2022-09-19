@@ -39,37 +39,52 @@ class MplCanvas(FigureCanvasQTAgg):
         self.parent = parent
         self.parent.x = 0
         self.parent.y = 0
-        print('test')
-        print(self.parent.parent.send_t1)
-
+        
         ### def draw_result_2size(dir_O, name, tab_size, tab_res, cible, motif_id, tab_sim, num_type):
         # init values
+        '''
         tab_sim = []
-        for i in range(5):
+        for i in range(6):
             temp = []
-            for j in range (5):
+            for j in range (6):
                 temp.append(1/(j/2+i/2+1))
             tab_sim.append(temp)
-        lst_id_y = [0,1,2,3,4]
-        lst_id_x = [0,1,2,3,4]
-        lst_occ_x = [1,1,3,4,5]
-        lst_occ_y = [1,2,3,2,1]
-        lst_cover_x = [1,2,3,4,5]
-        lst_cover_y = [5,4,3,2,1]
-        pointer = {'x':None, 'y':None}
-        num_type = {1: 1, 2: 2, 3:3,4:4,5:5}
+        '''
+        #lst_id_y = [0,1,2,3,4]
+        #lst_id_x = [0,1,2,3,4]
+        #lst_occ_x = [1,1,3,4,5]
+        #lst_occ_y = [1,2,3,2,1]
+        #lst_cover_x = [1,2,3,4,5]
+        #lst_cover_y = [5,4,3,2,1]
+        #pointer = {'x':None, 'y':None}
+        #num_type = {1: 1, 2: 2, 3:3,4:4,5:5,6:6}
 
         ### tentative d'ajouter les listes directement depuis la bdd
         
-        print(self.parent.parent.db_ids)
+        print("self.parent.parent.taille1")
+        print(self.parent.parent.taille1)
+        print("self.parent.parent.taille2")
+        print(self.parent.parent.taille2)
 
         # Formation des distributions
-        tab_res = [None, None]
-        #pipeline = Fp.unique_config(db_ids[0], db_ids[1], db_ids[2])
+        #tab_res = [None, None]
+        #pipeline = Fp.unique_config(self.parent.parent.db_ids[0], 
+        #        self.parent.parent.db_ids[1], self.parent.parent.db_ids[2])
         #tab_res[0] = Fp.construct_1tab(self.parent.parent.db, pipeline, lst_motifs)
         pointer = {'x':None, 'y':None}
-        #lst_id, lst_occ, lst_cover = Gd.split_tab_res(tab_res, fid, cible, motif_id, pointer, ['x','y'])
+        lst_id_x, lst_occ_x, lst_cover_x = split_tab_res_no_file(
+                self.parent.parent.tab_res[0], self.parent.parent.options[3], 
+                self.parent.parent.db_ids[3], pointer, ['x'])
+        if self.parent.parent.taille1 != self.parent.parent.taille2:
+            lst_id_y, lst_occ_y, lst_cover_y = split_tab_res_no_file(
+                    self.parent.parent.tab_res[1], self.parent.parent.options[3], 
+                    self.parent.parent.db_ids[3], pointer, ['y'])
+        else:
+            lst_id_y, lst_occ_y, lst_cover_y = split_tab_res_no_file(
+                self.parent.parent.tab_res[0], self.parent.parent.options[3], 
+                self.parent.parent.db_ids[3], pointer, ['x'])
 
+        
         '''
         pointer = {'x':None, 'y':None}
         pipeline = Fp.complete_struct(db_ids[0], db_ids[1])
@@ -91,9 +106,24 @@ class MplCanvas(FigureCanvasQTAgg):
         ratio_ext = max(1, lenght/40)
         fontsize = max(8, (lenght/5))
         
+        if self.parent.parent.taille1 != self.parent.parent.taille2:
+            tab_sim = Fp.construct_matrix_2g(self.parent.parent.db, 
+                    int(self.parent.parent.options[2]),
+                    self.parent.parent.tab_res[0], self.parent.parent.tab_res[1])
+        else:
+            tab_sim = Fp.construct_matrix_1g(self.parent.parent.db, 
+                    int(self.parent.parent.options[2]),
+                    self.parent.parent.tab_res[0])
 
-
-        lst_sim, tab_sim = Gd.analyse_simil(tab_sim, num_type, 2)
+        print('tab_sim')
+        print(tab_sim)
+        lst_sim, tab_sim = Gd.analyse_simil(tab_sim, self.parent.parent.options[2], 2)
+        print('tab_sim')
+        
+        print(tab_sim)
+        print('lst_sim')
+        
+        print(lst_sim)
         # Figures :
         plt.clf()
         fig = plt.figure(figsize = (1.5*(ratio_x+ratio_ext)+10,1.5*(ratio_y+ratio_ext)+10))#, constrained_layout=True)
@@ -241,4 +271,30 @@ class InteractiveWindow(QMainWindow):
             print('veuillez cliquer une case de la matrice de chaleur')
     
 
-     
+# Sépare les informations dans des listes différentes
+def split_tab_res_no_file (tab_res, cible, motif_id, pointer, axis):
+    # pour les indices des la liste (trié au préalable)
+    plot_index = []
+    plot_occur = []
+    plot_cover = []
+    # plot_distr = []
+    i = 0
+    for tmp in tab_res:
+        # récupère les stats
+        #if cible and tmp[3] == motif_id:
+        #    fid.write(">")
+        for a in axis :
+            if cible and tmp[3] == motif_id:
+                pointer[a] = int(i)
+        #fid.write(str(tmp[3]) + "\n")
+        plot_index.append(int(i))
+        plot_occur.append(int(tmp[0]))
+        plot_cover.append(float(tmp[1]))
+        # plot_distr.append(float(tmp[2]))
+        i += 1
+    #fid.close()
+    index = np.array(plot_index, dtype="i")
+    occur = np.array(plot_occur, dtype="i")
+    cover = np.array(plot_cover, dtype="f")
+    #distr = np.array(plot_distr, dtype="f")
+    return index, occur, cover#, distr
