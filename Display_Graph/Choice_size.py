@@ -338,9 +338,9 @@ class MenuWindow(QMainWindow):
 
         self.lst_motifs1 = Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB1.currentText()), lst_color)
         if self.radio_1.isChecked():
-            self.lst_motifs2 = Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB1.currentText()), lst_color)
-        else:
             self.lst_motifs2 = self.lst_motifs1.copy()
+        else:
+            self.lst_motifs2 = Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB2.currentText()), lst_color)
             
         # Nombre de comparaison à faire et test des longueurs des listes
         nb_comp = 0

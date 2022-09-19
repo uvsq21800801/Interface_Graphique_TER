@@ -24,6 +24,17 @@ from Outputs.texture import *
 
 from Interfaces import Final_process as Fp
 
+from PyQt5.QtGui import QPixmap
+from Outputs import Graphlet_draw as Gld
+from bson.objectid import ObjectId
+from bson.binary import Binary
+from io import BytesIO
+from PIL import Image
+
+import os
+import os.path
+from os import path
+
 temp_x = 0
 temp_y = 0
 x = 'not a float, ce texte vérifie que user a bien choisi une case de la mat de chaleur'
@@ -32,6 +43,8 @@ text_x = ' '
 text_y = ' '
 t_x = ' '
 t_y = ' '
+lst_obj_id_x = []
+lst_obj_id_y = []
 class MplCanvas(FigureCanvasQTAgg):
 
     def __init__(self, parent, width=5, height=4, dpi=100):
@@ -42,22 +55,6 @@ class MplCanvas(FigureCanvasQTAgg):
         
         ### def draw_result_2size(dir_O, name, tab_size, tab_res, cible, motif_id, tab_sim, num_type):
         # init values
-        '''
-        tab_sim = []
-        for i in range(6):
-            temp = []
-            for j in range (6):
-                temp.append(1/(j/2+i/2+1))
-            tab_sim.append(temp)
-        '''
-        #lst_id_y = [0,1,2,3,4]
-        #lst_id_x = [0,1,2,3,4]
-        #lst_occ_x = [1,1,3,4,5]
-        #lst_occ_y = [1,2,3,2,1]
-        #lst_cover_x = [1,2,3,4,5]
-        #lst_cover_y = [5,4,3,2,1]
-        #pointer = {'x':None, 'y':None}
-        #num_type = {1: 1, 2: 2, 3:3,4:4,5:5,6:6}
 
         ### tentative d'ajouter les listes directement depuis la bdd
         
@@ -72,10 +69,19 @@ class MplCanvas(FigureCanvasQTAgg):
         #        self.parent.parent.db_ids[1], self.parent.parent.db_ids[2])
         #tab_res[0] = Fp.construct_1tab(self.parent.parent.db, pipeline, lst_motifs)
         pointer = {'x':None, 'y':None}
+        listOfGlobals = globals()
+        listOfGlobals['lst_obj_id_x'] = []
+        for r in self.parent.parent.tab_res[0]:
+            listOfGlobals['lst_obj_id_x'].append(r[3])
+
         lst_id_x, lst_occ_x, lst_cover_x = split_tab_res_no_file(
                 self.parent.parent.tab_res[0], self.parent.parent.options[3], 
                 self.parent.parent.db_ids[3], pointer, ['x'])
         if self.parent.parent.taille1 != self.parent.parent.taille2:
+            listOfGlobals['lst_obj_id_y'] = []
+            for r in self.parent.parent.tab_res[1]:
+                listOfGlobals['lst_obj_id_y'].append(r[3])
+            
             lst_id_y, lst_occ_y, lst_cover_y = split_tab_res_no_file(
                     self.parent.parent.tab_res[1], self.parent.parent.options[3], 
                     self.parent.parent.db_ids[3], pointer, ['y'])
@@ -83,16 +89,14 @@ class MplCanvas(FigureCanvasQTAgg):
             lst_id_y, lst_occ_y, lst_cover_y = split_tab_res_no_file(
                 self.parent.parent.tab_res[0], self.parent.parent.options[3], 
                 self.parent.parent.db_ids[3], pointer, ['x'])
+            listOfGlobals['lst_obj_id_y'] = listOfGlobals['lst_obj_id_x'].copy()
 
+        print('self.parent.parent.tab_res[0]')
+        print(self.parent.parent.tab_res[0])
+        print('self.parent.parent.options[3]')
+        print(self.parent.parent.options[3])
         
-        '''
-        pointer = {'x':None, 'y':None}
-        pipeline = Fp.complete_struct(db_ids[0], db_ids[1])
-        tab_res = [None, None]
-        tab_res[0], tab_res[1] = Fp.construct_2tab(self.parent.parent.db,
-                                     pipeline, lst_motifs1, lst_motifs2)
-        lst_id, lst_occ, lst_cover = Gd.split_tab_res(tab_res, fid, cible, motif_id, pointer, ['x','y'])
-        '''
+        
         # Valeurs :
         lenght = max(len(lst_id_y), len(lst_id_x))
         step = int(lenght / 20) + 1
@@ -115,15 +119,20 @@ class MplCanvas(FigureCanvasQTAgg):
                     int(self.parent.parent.options[2]),
                     self.parent.parent.tab_res[0])
 
-        print('tab_sim')
-        print(tab_sim)
+        #print('tab_sim')
+        #print(tab_sim)
         lst_sim, tab_sim = Gd.analyse_simil(tab_sim, self.parent.parent.options[2], 2)
-        print('tab_sim')
+        #print('tab_sim')
         
-        print(tab_sim)
-        print('lst_sim')
+        #print(tab_sim)
+        #print('lst_sim')
         
-        print(lst_sim)
+        #print(lst_sim)
+        print('lst_id_x')
+        print(lst_id_x)
+        print('lst_id_y')
+        print(lst_id_y)
+
         # Figures :
         plt.clf()
         fig = plt.figure(figsize = (1.5*(ratio_x+ratio_ext)+10,1.5*(ratio_y+ratio_ext)+10))#, constrained_layout=True)
@@ -191,6 +200,7 @@ class InteractiveWindow(QMainWindow):
         print(self.parent.combo_interf.currentText())
         self.setWindowTitle("Affichage interactif")
         
+
         #Smart_Display.One_size()
         
         # definition du layout horizontal
@@ -232,22 +242,28 @@ class InteractiveWindow(QMainWindow):
         # création des labels textes
         self.label_abs = QLabel()
         self.label_abs.setText("Motif numéro: ")
-        
+        self.img_1 = QPixmap('t1.png')
+        self.label_abs.setPixmap(self.img_1)
         self.label_mcis = QLabel()
         self.label_mcis.setText("MCIS obtenu: ")
-
+        self.img_mcis = QPixmap('MCIS.png')
+        self.label_mcis.setPixmap(self.img_mcis)
         self.label_ord = QLabel()
         self.label_ord.setText("Motif numéro: ")
-
+        self.img_2 = QPixmap('t2.png')
+        self.label_ord.setPixmap(self.img_2)
         # 
 
         # construction du layout pour motifs
         self.lay_V_motifs.addWidget(self.label_abs)
         # jpeg
+        #self.lay_V_motifs.addWidget(self.img_1)
         self.lay_V_motifs.addWidget(self.label_mcis)
         # jpeg
+        #self.lay_V_motifs.addWidget(self.img_mcis)
         self.lay_V_motifs.addWidget(self.label_ord)
         # jpeg
+        #self.lay_V_motifs.addWidget(self.img_2)
 
 
         # entrer le layout dans une widget
@@ -256,20 +272,69 @@ class InteractiveWindow(QMainWindow):
 
         self.setCentralWidget(self.one_wigd)
 
-    #def mousePressEvent(self, event):
-        #print("a")
-        #print('data coords %d %d' % (x.round(), y.round()))
 
     def validate(self):
         try:
-            float(x)
-            int(x)
+                    
             print('Afficher les motifs des indices %d et %d' % (int(x.round()),int(y.round())))
-            # code qui génère et affiche les motifs
+            
+            # tables
+            colors = self.parent.db.colorations
+            motifs = self.parent.db.motifs
+
+            listOfGlobals = globals()
+            print('listOfGlobals[\'lst_obj_id_x\'\]\'')
+            print(listOfGlobals['lst_obj_id_x'])
+            ## récupération de l'id du motif
+            id_motif_x = listOfGlobals['lst_obj_id_x'][int(x.round())]
+            id_motif_y = listOfGlobals['lst_obj_id_y'][int(y.round())]
+
+            # demande l'ObjectId du motif sur la BDD
+            while (
+                not ObjectId.is_valid(id_motif_x)
+                or motifs.count_documents({"_id": ObjectId(id_motif_x)}) == 0
+            ):
+                id_motif_x = input(str(id_motif_x) + " n'exites pas. Autre id : ")
+            motif = motifs.find_one({"_id": ObjectId(id_motif_x)})
+            if "img" in motif.keys():
+                im = Image.open(BytesIO(motif["img"]))
+                im.show()
+                
+                # Au cas ou le chemin n'existe pas, crée le chemin 
+                if (not path.exists("Outputs/Place_Output_here/motifs")):
+                    print("detets lacking dirs")
+                    os.makedirs("Outputs/Place_Output_here/motifs")
+
+                im.save("Outputs/Place_Output_here/motifs/draw_"+str(id_motif_x)+".png")
+                
+            else:
+                color_id = motif["color"]
+                lst_vertex = list(motif["lst_v"])
+                lst_bonds = list(motif["lst_b"])
+                
+                color = colors.find_one({"_id":ObjectId(color_id)})
+                lst_elem = list(color["elements"])
+                
+                Gld.draw_graphlet(id_motif_x, lst_vertex, lst_bonds, lst_elem)
+                data = open("Outputs/Place_Output_here/motifs/draw_" + str(id_motif_x) + ".png", mode='rb').read()
+                motifs.find_one_and_update({'_id':ObjectId(id_motif_x)},{"$set":{'img': Binary(data)}})
+            
+            print("dessin sauvegardé dans Outputs/Place_Output_here/motifs/draw_"+str(id_motif_x)+".png")
+            self.label_abs.setPixmap(QPixmap("Outputs/Place_Output_here/motifs/draw_"+str(id_motif_x)+".png"))
+            #self.label_abs.scaled(200)
+            #self.label_abs.scaledToHeight(100)
+            #self.label_abs.setMaximumHeight(100)
+            #self.label_abs.setMaximumWidth(200)
+            #self.label_abs.setPixmap(p.scaled(200, 100, Qt.KeepAspectRatio))
 
         except ValueError:
             print('veuillez cliquer une case de la matrice de chaleur')
     
+            ###
+
+            #try:
+            # code qui génère et affiche les motifs
+
 
 # Sépare les informations dans des listes différentes
 def split_tab_res_no_file (tab_res, cible, motif_id, pointer, axis):
