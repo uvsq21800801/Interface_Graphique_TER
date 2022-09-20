@@ -15,6 +15,7 @@ from bson.objectid import ObjectId
 from Display_Graph import Clickable_display
 from Interfaces import Select_process as Sp
 #from Interfaces import Study_process as Study
+
 # pas encore utilisé
 '''
 class db_ids:
@@ -71,8 +72,8 @@ class MenuWindow(QMainWindow):
             iterable_structures.append(t["name"])
             ## insert entry to dict here
             self.dict_struct_name_id[str(t["name"])] = str(t["_id"])
-        print(iterable_structures)
-        print(self.dict_struct_name_id)
+        #print(iterable_structures)
+        #print(self.dict_struct_name_id)
 
         self.combo_interf = QComboBox()
         self.combo_interf.addItems(iterable_structures) 
@@ -113,7 +114,7 @@ class MenuWindow(QMainWindow):
         # bouton valider
         vbutt = QPushButton()
         vbutt.setText("Valider")
-        vbutt.clicked.connect(self.disp_window)
+        vbutt.clicked.connect(self.change_err_msg)
         # Label erreur
         self.label_err = QLabel(self)
         self.label_err.setText("")
@@ -177,7 +178,6 @@ class MenuWindow(QMainWindow):
         self.one_lay.addWidget(self.sizeComboB2, 11, 2)
         self.one_lay.addWidget(vbutt, 12, 1)
         self.one_lay.addWidget(self.label_err, 12, 2)
-        #
 
         # events
         self.combo_interf.activated.connect(self.change_color_choices)
@@ -189,19 +189,9 @@ class MenuWindow(QMainWindow):
         self.sizeComboB2.setDisabled(True)
         vbutt.clicked.connect(self.validate)
 
-
-        #self.sizeComboB1.activated.connect
-        #self.sizeComboB2.activated.connect
-
         # entrer le layout dans une widget
         self.one_wigd = QWidget()
         self.one_wigd.setLayout(self.one_lay)
-        #widg_form.setLayout(lay_form) 
-
-        #no need ### Concatenate the two layout into the displayed window
-        #self.layout_final = QVBoxLayout()
-        #self.layout_final.addWidget(self.one_wigd)
-        #self.layout_final.addWidget(widg_form)
         
         self.setCentralWidget(self.one_wigd)
 
@@ -213,8 +203,7 @@ class MenuWindow(QMainWindow):
         # On retrouve l'id de l'interface pour sortir les config associées
         self.structure_id = self.db.structures.find_one({"name":selected})
         self.structure_id = self.structure_id["_id"]
-        print('self.structure_id')
-        print(self.structure_id)
+
         # recherche des coloration qui matchent l'identifiant de la structure
         #temp = self.db.colorations#.aggregate#([
             #{"$match": {"struct": ObjectId(self.structure_id)}}
@@ -268,7 +257,6 @@ class MenuWindow(QMainWindow):
 
         sizes = self.db.configurations.find_one({"struct":ObjectId(self.structure_id), "number":int(conf)})
         sizes = sizes["sizes"]
-        #print(conf_id)
 
         self.t1 = ["A sélectionner"]
         for s in sizes:
@@ -276,9 +264,8 @@ class MenuWindow(QMainWindow):
         self.sizeComboB1.clear()
         self.sizeComboB1.addItems(self.t1)
 
-        #pain = self.db.configurations.aggregate([])
-        #for i in pain:
-            #print(i) 
+        # temporairement ici
+        self.label_err.setText("Regardez le terminal après validation")
 
     def update_size_2(self):
         t2 = self.t1.copy()
@@ -288,15 +275,14 @@ class MenuWindow(QMainWindow):
         self.sizeComboB2.addItems(t2)
 
     def validate(self):
+        # obselete?
         self.send_interf = self.combo_interf.currentText()
         self.send_conf = self.combo_conf.currentText()
         self.send_r1 = self.radio_1.isChecked()
         self.send_r2 = self.radio_2.isChecked()
+        # fin obselete?
 
         #need error loop
-        print(self.dict_conf_name_id)
-        
-        print(self.combo_conf.currentText())
         
         self.db_ids[0] = self.dict_struct_name_id[str(self.combo_interf.currentText())]
         self.db_ids[1] = ObjectId(str(self.color_id))
@@ -309,21 +295,6 @@ class MenuWindow(QMainWindow):
             self.taille2 = self.sizeComboB2.currentText()
         else:
             self.taille2 = self.sizeComboB1.currentText()
-
-        #self.db_names[1] = str(self.combo_conf.currentText())
-         
-        #nb_config, _ = Sp.view_config(self.db, self.db_ids, self.db_names)
-        #Study.Complete_process()
-        print('db_ids')
-        
-        print(self.db_ids)
-        print ("[int(self.sizeComboB1.currentText())]")
-        
-        print ([int(self.sizeComboB1.currentText())])
-        #print(nb_config)
-        print("self.options")
-        print(self.options)
-        print('fin dict conf')
         
         # cribles à ajouter quand j'aurais le temps
 
@@ -333,8 +304,6 @@ class MenuWindow(QMainWindow):
         #lst_color.remove("A sélectionner")
         lst_color = self.db.colorations.find_one({"_id":self.db_ids[1]})
         lst_color = lst_color["elements"]
-        print("lst_color")
-        print(lst_color)
 
         self.lst_motifs1 = Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB1.currentText()), lst_color)
         if self.radio_1.isChecked():
@@ -386,9 +355,6 @@ class MenuWindow(QMainWindow):
             else :
                 print("Il y a "+str(len(self.tab_res[0]))+ " motifs étudiés.")
 
-        print("self.tab_res")
-        print(self.tab_res)
-
         # appel de la nouvelle fenêtre
         self.w = Clickable_display.InteractiveWindow(parent=self)
         self.w.show()
@@ -397,13 +363,6 @@ class MenuWindow(QMainWindow):
         cdt = "A sélectionner"
         #if self.send_t1 != cdt and self.send_interf != cdt and self.send_conf != cdt: 
             
-            
-        '''
-            if r2 and t2 != cdt:
-                print("call nice windowo 2")
-            if r1:
-                print("call nice windowo 1")
-        '''
 
 
     def update_sizes(self): #trash
@@ -431,9 +390,9 @@ class MenuWindow(QMainWindow):
 
         
 
-    def disp_window(self):
-        print('it worked')
-        self.label_err.setText("AAAAAA")
+    def change_err_msg(self):
+        
+        self.label_err.setText("Regardez le terminal après validation")
         
 def window():
 

@@ -170,13 +170,13 @@ def select_filter(nb_v, lst_color):
     lst_in = Ta.terminal_question_text_choice(question,lst_color)
     question = "Motif contenant aucune fois le(s) élément(s)?"
     lst_out = Ta.terminal_question_text_choice(question,lst_color)
+    lst_elem = []
     if lst_out != None:
-        lst_elem = []
         for elem in lst_color :
             if elem not in lst_out:
                 lst_elem.append(elem)
-        if len(lst_elem) == 0:
-            lst_elem = None
+    if len(lst_elem) == 0:
+        lst_elem = None
     res = [None, True, False]
     question = "Motif contenant une liaison hydrogène?"
     h_bool = Ta.terminal_question_choice(question,["Pas de filtre", "Au moins 1", "Aucune"])
