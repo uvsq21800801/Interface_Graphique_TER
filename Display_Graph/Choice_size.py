@@ -3,18 +3,15 @@ from ctypes import Structure
 from lzma import is_check_supported
 from traceback import print_tb
 from PyQt5.QtWidgets import *
-#from PyQt5 import QtCore, QtGui
-#from PyQt5.QtGui import * 
-#from PyQt5.QtCore import *
-#from PyQt5.QtWidgets import (QWidget, QLabel, QHBoxLayout,QCheckBox, QApplication)
 import sys
 from Inputs import Database_create as DbC
-#from Display_Graph import Database_functs as DbC
+
 from bson.objectid import ObjectId
 
 from Display_Graph import Clickable_display
+from Display_Graph import Clickable_occur_recouv
+
 from Interfaces import Select_process as Sp
-#from Interfaces import Study_process as Study
 
 # pas encore utilisé
 '''
@@ -96,8 +93,8 @@ class MenuWindow(QMainWindow):
         self.one_lay = QGridLayout()
         self.radio_1 = QRadioButton('Une taille avec elle-même')
         self.radio_2 = QRadioButton('Deux tailles')
-        #self.widg_radio = QWidget()
-        #self.widg_radio.setLayout(self.one_lay)
+        self.radio_3 = QRadioButton('Occurence et Recouvrement')
+        
 
         # Choix multiple pour chaquune des tailles
         # créer une boite combo pour la taille n1
@@ -174,6 +171,7 @@ class MenuWindow(QMainWindow):
         self.one_lay.addWidget(self.combo_conf, 6,1)
         self.one_lay.addWidget(self.radio_1, 8, 1)
         self.one_lay.addWidget(self.radio_2, 8, 2)
+        self.one_lay.addWidget(self.radio_3, 8, 3)
         self.one_lay.addWidget(self.sizeComboB1, 11, 1)
         self.one_lay.addWidget(self.sizeComboB2, 11, 2)
         self.one_lay.addWidget(vbutt, 12, 1)
@@ -186,6 +184,7 @@ class MenuWindow(QMainWindow):
         self.sizeComboB1.activated.connect(self.update_size_2)
         self.radio_1.toggled.connect(self.toggle_type_of_search)
         self.radio_2.toggled.connect(self.toggle_type_of_search)
+        self.radio_3.toggled.connect(self.toggle_type_of_search)
         self.sizeComboB2.setDisabled(True)
         vbutt.clicked.connect(self.validate)
 
@@ -243,9 +242,10 @@ class MenuWindow(QMainWindow):
     def toggle_type_of_search(self):
         r1 = self.radio_1.isChecked()
         r2 = self.radio_2.isChecked()
+        r3 = self.radio_3.isChecked()
         
         # verif si on peut lock/unlock t2
-        if r1:
+        if r1 or r3:
             self.sizeComboB2.setDisabled(True)
         if r2:
             self.sizeComboB2.setDisabled(False)            
@@ -295,21 +295,16 @@ class MenuWindow(QMainWindow):
             self.taille2 = self.sizeComboB2.currentText()
         else:
             self.taille2 = self.sizeComboB1.currentText()
-        
-        # cribles à ajouter quand j'aurais le temps
 
         # pour l'instant, le terminal sera utilisé pour la gestion des cribles
-        #lst_color = Di.insert_color(self.db.colorations, self.db_ids, db_names, options)
-        #lst_color = self.list_color
-        #lst_color.remove("A sélectionner")
         lst_color = self.db.colorations.find_one({"_id":self.db_ids[1]})
         lst_color = lst_color["elements"]
 
         self.lst_motifs1 = Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB1.currentText()), lst_color)
-        if self.radio_1.isChecked():
-            self.lst_motifs2 = self.lst_motifs1.copy()
-        else:
+        if self.radio_2.isChecked():
             self.lst_motifs2 = Sp.test_filter(self.db, self.db_ids, int(self.sizeComboB2.currentText()), lst_color)
+        else:
+            self.lst_motifs2 = self.lst_motifs1.copy()
             
         # Nombre de comparaison à faire et test des longueurs des listes
         nb_comp = 0
@@ -356,14 +351,16 @@ class MenuWindow(QMainWindow):
                 print("Il y a "+str(len(self.tab_res[0]))+ " motifs étudiés.")
 
         # appel de la nouvelle fenêtre
-        self.w = Clickable_display.InteractiveWindow(parent=self)
-        self.w.show()
+        if self.radio_3.isChecked():
+            self.w = Clickable_occur_recouv.InteractiveWindow(parent=self)
+            self.w.show()
+
+        else:
+            self.w = Clickable_display.InteractiveWindow(parent=self)
+            self.w.show()
 
         # gestion d'erreur (pas encore fait)
-        cdt = "A sélectionner"
-        #if self.send_t1 != cdt and self.send_interf != cdt and self.send_conf != cdt: 
-            
-
+        
 
     def update_sizes(self): #trash
         conf = self.combo_conf.currentText()
@@ -402,6 +399,5 @@ def window():
 
     win.show()
     app.exec()
-    #sys.exit(app.exec_())
 
 
