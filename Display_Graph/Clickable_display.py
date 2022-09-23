@@ -4,7 +4,6 @@ import telnetlib
 from turtle import update
 from PyQt5.QtWidgets import *
 import sys
-from Display_Graph import Smart_Display
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
@@ -196,8 +195,6 @@ class InteractiveWindow(QMainWindow):
         vbutt.setText("Valider")
         self.lay_matplot.addWidget(vbutt)
         vbutt.clicked.connect(self.validate)
-        #
-
         
         # ajout du layout matplotlib et V au layout horizontal
         self.lay_H.addLayout(self.lay_matplot)
